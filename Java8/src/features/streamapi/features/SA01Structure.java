@@ -6,6 +6,7 @@ import java.util.List;
 public class SA01Structure {
 	public static void main(String[] args) {
 		List<Integer> numList = Arrays.asList(1,2,3,4,5,6,7,8,8,10,20);
+		
 		numList.stream().filter(n -> n%2 ==0).forEach(System.out::println);
 	}
 
