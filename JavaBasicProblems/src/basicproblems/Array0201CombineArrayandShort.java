@@ -1,5 +1,9 @@
 package basicproblems;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Array0201CombineArrayandShort {
 public static void main(String[] args) {
 	int[] nums1 = {1,2,3,0,0,0,0};
@@ -21,6 +25,7 @@ public static void main(String[] args) {
 	 int[] op = combList.stream().mapToInt(Integer::intValue).toArray();
 	 
 	 Arrays.sort(op);
+	 System.out.println(Arrays.toString(op));
 	
 }
 }
