@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Array0201CombineArrayandShort {
+	//print
 public static void main(String[] args) {
 	int[] nums1 = {1,2,3,0,0,0,0};
 	int[] nums2 = {2,5,6,7};
@@ -27,5 +28,6 @@ public static void main(String[] args) {
 	 Arrays.sort(op);
 	 System.out.println(Arrays.toString(op));
 	
+	 
 }
 }
