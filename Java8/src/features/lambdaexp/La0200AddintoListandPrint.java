@@ -15,3 +15,7 @@ public static void main(String[] args) {
 	
 }
 }
+
+//n -> System.out.println(n) is a lambda expression:
+//n is a parameter representing each element of the list.
+//System.out.println(n) is the body of the lambda, which prints each element.
