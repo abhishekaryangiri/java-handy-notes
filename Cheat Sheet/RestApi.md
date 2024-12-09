@@ -789,5 +789,3 @@ Pagination breaks large data into smaller chunks using query parameters.
 An API Gateway acts as an entry point for client requests, handling routing, load balancing, authentication, and monitoring.
 
 ---
-
-These questions will give you a well-rounded understanding of REST APIs for interviews. Let me know if you’d like to explore any in-depth!
