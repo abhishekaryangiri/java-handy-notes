@@ -1193,7 +1193,6 @@ function Presenter({ data }) {
 
 ---
 
-Here's a comprehensive write-up of the remaining topics with explanations and examples as requested:
 
 ---
 
