@@ -897,15 +897,19 @@ function Child({ message }) {
 }
 ```
 
-11. Why is performance optimization important in React?
+
+---
+
+### 11. **Why is performance optimization important in React?**
 Performance optimization is essential in React to ensure applications run smoothly, respond quickly to user interactions, and minimize unnecessary re-renders. This is especially important in large or complex applications where inefficiencies can impact user experience.
 
-12. How does PureComponent differ from Component in React?
-PureComponent is a base class in React similar to Component, but it implements a shallow comparison of props and state to determine if the component should re-render. This makes it useful for avoiding unnecessary re-renders, improving performance.
+---
 
-Example:
-jsx
-Copy code
+### 12. **How does `PureComponent` differ from `Component` in React?**
+`PureComponent` is a base class in React similar to `Component`, but it implements a shallow comparison of `props` and `state` to determine if the component should re-render. This makes it useful for avoiding unnecessary re-renders, improving performance.
+
+#### Example:
+```jsx
 import React, { PureComponent, Component } from "react";
 
 class NormalComponent extends Component {
@@ -940,115 +944,133 @@ class App extends Component {
 }
 
 export default App;
-Here, PureComp won't re-render if props.value hasn't changed, while NormalComponent re-renders every time.
+```
 
-13. How can you prevent unnecessary re-renders in React?
-Techniques:
-Using React.memo for Functional Components:
+Here, `PureComp` won't re-render if `props.value` hasn't changed, while `NormalComponent` re-renders every time.
 
-jsx
-Copy code
-const Child = React.memo(({ count }) => {
-  console.log("Child Rendered");
-  return <p>Count: {count}</p>;
-});
-Using PureComponent for Class Components:
+---
 
-jsx
-Copy code
-class Child extends React.PureComponent {
-  render() {
-    console.log("Child Rendered");
-    return <p>Count: {this.props.count}</p>;
-  }
-}
-Using useCallback and useMemo:
+### 13. **How can you prevent unnecessary re-renders in React?**
+#### Techniques:
+1. **Using `React.memo` for Functional Components**:
+   ```jsx
+   const Child = React.memo(({ count }) => {
+     console.log("Child Rendered");
+     return <p>Count: {count}</p>;
+   });
+   ```
 
-useCallback: Memoizes functions.
-useMemo: Memoizes values.
-jsx
-Copy code
-const Child = React.memo(({ onClick }) => {
-  console.log("Child Rendered");
-  return <button onClick={onClick}>Click</button>;
-});
+2. **Using `PureComponent` for Class Components**:
+   ```jsx
+   class Child extends React.PureComponent {
+     render() {
+       console.log("Child Rendered");
+       return <p>Count: {this.props.count}</p>;
+     }
+   }
+   ```
 
-function Parent() {
-  const handleClick = React.useCallback(() => console.log("Clicked"), []);
-  return <Child onClick={handleClick} />;
-}
-Avoid Inline Functions/Objects: Avoid creating new function or object references in render methods.
+3. **Using `useCallback` and `useMemo`**:
+   - `useCallback`: Memoizes functions.
+   - `useMemo`: Memoizes values.
 
-Conditional Rendering: Render components only when necessary.
+   ```jsx
+   const Child = React.memo(({ onClick }) => {
+     console.log("Child Rendered");
+     return <button onClick={onClick}>Click</button>;
+   });
 
-14. How do you optimize the performance of a React application for production?
-Strategies:
-Code Splitting: Use dynamic imports to split code into smaller bundles.
+   function Parent() {
+     const handleClick = React.useCallback(() => console.log("Clicked"), []);
+     return <Child onClick={handleClick} />;
+   }
+   ```
 
-jsx
-Copy code
-const LazyComponent = React.lazy(() => import("./Component"));
-Lazy Loading:
+4. **Avoid Inline Functions/Objects**:
+   Avoid creating new function or object references in render methods.
 
-jsx
-Copy code
-<React.Suspense fallback={<div>Loading...</div>}>
-  <LazyComponent />
-</React.Suspense>
-Memoization:
+5. **Conditional Rendering**:
+   Render components only when necessary.
 
-React.memo for components.
-useMemo for expensive calculations.
-Production Build: Build the app with:
+---
 
-arduino
-Copy code
-npm run build
-Optimize Images: Compress and use appropriate image formats.
+### 14. **How do you optimize the performance of a React application for production?**
+#### Strategies:
+1. **Code Splitting**: Use dynamic imports to split code into smaller bundles.
+   ```jsx
+   const LazyComponent = React.lazy(() => import("./Component"));
+   ```
 
-Minimize State: Keep state localized and scoped appropriately.
+2. **Lazy Loading**:
+   ```jsx
+   <React.Suspense fallback={<div>Loading...</div>}>
+     <LazyComponent />
+   </React.Suspense>
+   ```
 
-15. Describe your process for optimizing a component that has complex state logic and several child components?
-Steps:
-Analyze State Management: Localize or move state to a higher component if needed.
+3. **Memoization**:
+   - `React.memo` for components.
+   - `useMemo` for expensive calculations.
 
-Memoization: Use React.memo, useMemo, and useCallback for optimizing rendering and re-creating functions.
+4. **Production Build**:
+   Build the app with:
+   ```
+   npm run build
+   ```
 
-Split Components: Break down into smaller, focused components.
+5. **Optimize Images**:
+   Compress and use appropriate image formats.
 
-Use useReducer for Complex Logic:
+6. **Minimize State**:
+   Keep state localized and scoped appropriately.
 
-jsx
-Copy code
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    default:
-      return state;
-  }
-};
+---
 
-function Counter() {
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
+### 15. **Describe your process for optimizing a component that has complex state logic and several child components?**
+#### Steps:
+1. **Analyze State Management**:
+   Localize or move state to a higher component if needed.
+   
+2. **Memoization**:
+   Use `React.memo`, `useMemo`, and `useCallback` for optimizing rendering and re-creating functions.
 
-  return (
-    <div>
-      <button onClick={() => dispatch({ type: "increment" })}>+</button>
-      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
-      <p>Count: {state.count}</p>
-    </div>
-  );
-}
-Profile and Benchmark: Use React’s Profiler and tools like Chrome DevTools to identify bottlenecks.
+3. **Split Components**:
+   Break down into smaller, focused components.
 
-16. How do you programmatically navigate using React Router?
-Use the useNavigate hook (React Router v6+):
+4. **Use `useReducer` for Complex Logic**:
+   ```jsx
+   const reducer = (state, action) => {
+     switch (action.type) {
+       case "increment":
+         return { count: state.count + 1 };
+       case "decrement":
+         return { count: state.count - 1 };
+       default:
+         return state;
+     }
+   };
 
-jsx
-Copy code
+   function Counter() {
+     const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+     return (
+       <div>
+         <button onClick={() => dispatch({ type: "increment" })}>+</button>
+         <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+         <p>Count: {state.count}</p>
+       </div>
+     );
+   }
+   ```
+
+5. **Profile and Benchmark**:
+   Use React’s Profiler and tools like Chrome DevTools to identify bottlenecks.
+
+---
+
+### 16. **How do you programmatically navigate using React Router?**
+Use the `useNavigate` hook (React Router v6+):
+```jsx
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -1058,33 +1080,38 @@ function Home() {
     <button onClick={() => navigate("/about")}>Go to About Page</button>
   );
 }
-17. What are route guards and how can you implement them in React?
+```
+
+---
+
+### 17. **What are route guards and how can you implement them in React?**
 Route guards restrict access to certain routes based on conditions like authentication.
 
-Example:
-Create a PrivateRoute component:
+#### Example:
+1. **Create a PrivateRoute component**:
+   ```jsx
+   import { Navigate } from "react-router-dom";
 
-jsx
-Copy code
-import { Navigate } from "react-router-dom";
+   function PrivateRoute({ children, isAuthenticated }) {
+     return isAuthenticated ? children : <Navigate to="/login" />;
+   }
+   ```
 
-function PrivateRoute({ children, isAuthenticated }) {
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
-Use the PrivateRoute:
+2. **Use the PrivateRoute**:
+   ```jsx
+   <Routes>
+     <Route path="/dashboard" element={<PrivateRoute isAuthenticated={true}><Dashboard /></PrivateRoute>} />
+     <Route path="/login" element={<Login />} />
+   </Routes>
+   ```
 
-jsx
-Copy code
-<Routes>
-  <Route path="/dashboard" element={<PrivateRoute isAuthenticated={true}><Dashboard /></PrivateRoute>} />
-  <Route path="/login" element={<Login />} />
-</Routes>
-18. How do you use render props?
+---
+
+### 18. **How do you use render props?**
 Render props is a pattern where a prop’s value is a function used to control what the component renders.
 
-Example:
-jsx
-Copy code
+#### Example:
+```jsx
 function MouseTracker({ render }) {
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
 
@@ -1109,12 +1136,15 @@ function App() {
     />
   );
 }
-19. What are higher-order components (HOCs)?
+```
+
+---
+
+### 19. **What are higher-order components (HOCs)?**
 HOCs are functions that take a component and return a new component, adding additional behavior or data.
 
-Example:
-jsx
-Copy code
+#### Example:
+```jsx
 function withLoading(Component) {
   return function WrappedComponent({ isLoading, ...props }) {
     if (isLoading) return <p>Loading...</p>;
@@ -1130,16 +1160,20 @@ const DataWithLoading = withLoading(Data);
 
 // Usage:
 <DataWithLoading isLoading={true} data="Some data" />;
-20. Explain the container/presenter (smart/dumb) component pattern?
+```
+
+---
+
+### 20. **Explain the container/presenter (smart/dumb) component pattern?**
 This pattern separates logic and UI into different components:
+- **Container (Smart) Components**:
+  Handle data fetching, state, and logic.
+  
+- **Presenter (Dumb) Components**:
+  Focus on UI and receive data via props.
 
-Container (Smart) Components: Handle data fetching, state, and logic.
-
-Presenter (Dumb) Components: Focus on UI and receive data via props.
-
-Example:
-jsx
-Copy code
+#### Example:
+```jsx
 function Container() {
   const [data, setData] = React.useState(null);
 
@@ -1155,6 +1189,9 @@ function Container() {
 function Presenter({ data }) {
   return <p>{data ? data : "Loading..."}</p>;
 }
+```
+
+---
 
 
 
