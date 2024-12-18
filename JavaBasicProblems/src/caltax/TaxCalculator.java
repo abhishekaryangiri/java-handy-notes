@@ -7,10 +7,12 @@ public class TaxCalculator {
         double tax = 0.0;
 
         if (!item.isExempt()) {
-            tax += item.getPrice() * 0.10; // Basic sales tax
+            tax += item.getPrice() * 0.10;
+            // Basic sales tax
         }
         if (item.isImported()) {
-            tax += item.getPrice() * 0.05; // Import duty
+            tax += item.getPrice() * 0.05; 
+            // Import duty
         }
 
         return roundToNearestFiveCents(tax);

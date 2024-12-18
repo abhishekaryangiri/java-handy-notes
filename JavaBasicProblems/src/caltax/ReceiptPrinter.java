@@ -2,7 +2,7 @@ package caltax;
 
 import java.util.List;
 
-// * Responsible for generating and printing receipts for shopping baskets.
+// Responsible for generating and printing receipts for shopping baskets.
 
 public class ReceiptPrinter {
 
