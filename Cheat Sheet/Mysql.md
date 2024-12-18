@@ -1441,9 +1441,6 @@ INSERT INTO questions (question, option_1, option_2, option_3, option_4, correct
 ('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
 ```
 
-Here is the list of SQL queries formatted for Markdown with proper heading for each query and starting the numbering from 18:
-
-```markdown
 ### 18. Select All Records
 ```sql
 SELECT * FROM table_name;
