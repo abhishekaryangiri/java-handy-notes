@@ -1269,7 +1269,7 @@ These interview questions cover a wide range of SQL concepts including aggregati
 ---
 Here’s how you can rewrite the SQL commands and descriptions in markdown format for your `.md` file:
 
-```markdown
+
 # SQL Script for Modifying Quiz Database
 
 This script performs several modifications to the quiz database, specifically to the `quiz_session` and `question` tables.
@@ -1333,33 +1333,22 @@ DROP PRIMARY KEY,
 ADD PRIMARY KEY (questionId),
 MODIFY questionId INT NOT NULL AUTO_INCREMENT;
 ```
-```
 
 
----
-- This script updates column names, removes unnecessary columns, and changes data types.
-- `question` table is renamed to `questions` to follow naming conventions.
-- Changes to `quiz_session` table to improve structure, drop redundant fields, and set `questionId` as the primary key with auto-increment.
+#### This script updates column names, removes unnecessary columns, and changes data types.
+####`question` table is renamed to `questions` to follow naming conventions.
+#### Changes to `quiz_session` table to improve structure, drop redundant fields, and set `questionId` as the primary key with auto-increment.
   
-Make sure to run these SQL commands sequentially for the changes to take effect properly.
----
 
-
-
-# SQL Script for Managing User and Quiz Data
-
-This script demonstrates the creation and population of several databases and tables for a user management and quiz system.
-
-### 1. Create the `user_management` Database
+### 11. Create the `user_management` Database
 ```sql
 CREATE DATABASE user_management;
 SELECT * FROM demo;
 USE question;
 DROP TABLE quiz_session;
 ```
-###2. Create the question Table and Insert Data
+###12. Create the question Table and Insert Data
 ```sql
-
 CREATE TABLE question (
     id INT AUTO_INCREMENT PRIMARY KEY,
     question VARCHAR(255) NOT NULL,
@@ -1369,7 +1358,9 @@ CREATE TABLE question (
     option4 VARCHAR(100) NOT NULL,
     correct_option INT NOT NULL
 );
+```
 
+```sql
 INSERT INTO question (question, option1, option2, option3, option4, correct_option) VALUES
 ('What is the default value of a boolean variable in Java?', 'true', 'false', '0', '1', 2),
 ('Which of the following is not a valid data type in Java?', 'int', 'long', 'float', 'dec', 4),
@@ -1383,40 +1374,32 @@ INSERT INTO question (question, option1, option2, option3, option4, correct_opti
 ('What is the correct syntax for a method in Java?', 'public static void method() {}', 'void static public method() {}', 'static void method() {}', 'public method() {}', 1),
 ('Which of the following classes is used for storing key-value pairs in Java?', 'List', 'Set', 'Map', 'Queue', 3),
 ('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
+```
 
-
-
-###3. Insert Data into users Table (from demo database)
-sql
-
+###13. Insert Data into users Table (from demo database)
+```sql
 USE demo;
 INSERT INTO users (name, mobile_number, favorite_teacher, password) VALUES
 ('Abhishek', '9898989898', 'Ram sir', 'password123'),
 ('Amita', '7778989898', 'garg sir', 'password123'),
 ('Aryan', '9238989898', 'Mann sir', 'password123');
+```
 
-
-###4. Create quiz_db Database and Use It
-sql
-
+###14. Create quiz_db Database and Use It
+```sql
 CREATE DATABASE quiz_db;
 SHOW DATABASES;
 USE quiz_db;
+```
 
-
-
-###5. Check Existing Tables in quiz_db
-
-
-sql
-
+###15. Check Existing Tables in quiz_db
+```sql
 SELECT * FROM questionsquestion_seq;
 SELECT * FROM quiz_sessions;
-
+```
 
 ###6. Create questions and quiz_sessions Tables
-sql
-
+```sql
 CREATE TABLE questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     question VARCHAR(255) NOT NULL,
@@ -1426,7 +1409,9 @@ CREATE TABLE questions (
     option_4 VARCHAR(100) NOT NULL,
     correct_option INT NOT NULL
 );
+```
 
+```sql
 CREATE TABLE quiz_sessions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -1434,13 +1419,10 @@ CREATE TABLE quiz_sessions (
     selected_option INT NOT NULL,
     is_correct BOOLEAN NOT NULL
 );
+```
+
 ###7. Insert Data into questions Table
-
-
-
-
-sql
-
+```sql
 INSERT INTO questions (question, option_1, option_2, option_3, option_4, correct_option) VALUES
 ('What is the default value of a boolean variable in Java?', 'true', 'false', '0', '1', 2),
 ('Which of the following is not a valid data type in Java?', 'int', 'long', 'float', 'dec', 4),
@@ -1454,7 +1436,7 @@ INSERT INTO questions (question, option_1, option_2, option_3, option_4, correct
 ('What is the correct syntax for a method in Java?', 'public static void method() {}', 'void static public method() {}', 'static void method() {}', 'public method() {}', 1),
 ('Which of the following classes is used for storing key-value pairs in Java?', 'List', 'Set', 'Map', 'Queue', 3),
 ('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
-
+```
 
 
 
