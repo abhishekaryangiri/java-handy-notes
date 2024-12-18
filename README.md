@@ -127,4 +127,16 @@ GET http://localhost:8080/api/quiz/result/1
 }
 ```
 
+## Tech Stack Used to Build This Quiz App API
+
+- **Spring Boot**: Framework for building the backend API.
+- **MySQL**: Relational database for storing user data and quiz information.
+- **Hibernate**: ORM for interacting with the database.
+- **GitHub**: Version control and repository management.
+- **Maven**: Build automation tool for dependency management and project builds.
+- **Apache Tomcat**: Web server for deploying the Spring Boot application.
+- **Spring Initializr**: Tool for generating the Spring Boot project structure.
+- **REST API**: Architecture style for building the API endpoints.
+
+
 ---
