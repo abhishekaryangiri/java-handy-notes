@@ -118,7 +118,7 @@ This endpoint provides the result of the quiz for a specific user by their `user
 GET http://localhost:8080/api/quiz/result/1
 ```
 
-**Output (for userId = 1):**  
+***Output (for userId = 1):**  
 ```json
 {
     "Total Questions": 7,
