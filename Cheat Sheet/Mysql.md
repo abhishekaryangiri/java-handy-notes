@@ -1441,7 +1441,245 @@ INSERT INTO questions (question, option_1, option_2, option_3, option_4, correct
 ('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
 ```
 
+Here is the list of SQL queries formatted for Markdown with proper heading for each query and starting the numbering from 18:
 
+```markdown
+### 18. Select All Records
+```sql
+SELECT * FROM table_name;
+```
+
+### 19. Select Specific Columns
+```sql
+SELECT column1, column2 FROM table_name;
+```
+
+### 20. Select Distinct Values
+```sql
+SELECT DISTINCT column_name FROM table_name;
+```
+
+### 21. Select with WHERE Clause
+```sql
+SELECT * FROM table_name WHERE column_name = 'value';
+```
+
+### 22. Find Average Value
+```sql
+SELECT AVG(column_name) FROM table_name;
+```
+
+### 23. Find Sum of Values
+```sql
+SELECT SUM(column_name) FROM table_name;
+```
+
+### 24. Find Maximum Value
+```sql
+SELECT MAX(column_name) FROM table_name;
+```
+
+### 25. Find Minimum Value
+```sql
+SELECT MIN(column_name) FROM table_name;
+```
+
+### 26. Count Number of Rows
+```sql
+SELECT COUNT(*) FROM table_name;
+```
+
+### 27. Group By with Aggregate
+```sql
+SELECT column_name, COUNT(*) FROM table_name GROUP BY column_name;
+```
+
+### 28. Group By with HAVING Clause
+```sql
+SELECT column_name, AVG(salary) FROM employees GROUP BY department_id HAVING AVG(salary) > 50000;
+```
+
+### 29. Inner Join
+```sql
+SELECT a.column1, b.column2
+FROM table1 a
+INNER JOIN table2 b ON a.common_column = b.common_column;
+```
+
+### 30. Left Join
+```sql
+SELECT a.column1, b.column2
+FROM table1 a
+LEFT JOIN table2 b ON a.common_column = b.common_column;
+```
+
+### 31. Right Join
+```sql
+SELECT a.column1, b.column2
+FROM table1 a
+RIGHT JOIN table2 b ON a.common_column = b.common_column;
+```
+
+### 32. Full Outer Join
+```sql
+SELECT a.column1, b.column2
+FROM table1 a
+FULL OUTER JOIN table2 b ON a.common_column = b.common_column;
+```
+
+### 33. Subquery in SELECT Statement
+```sql
+SELECT column_name,
+       (SELECT AVG(salary) FROM employees) AS average_salary
+FROM employees;
+```
+
+### 34. Subquery in WHERE Clause
+```sql
+SELECT column_name FROM table_name
+WHERE column_id = (SELECT MAX(column_id) FROM table_name);
+```
+
+### 35. Subquery in FROM Clause
+```sql
+SELECT AVG(salary) FROM (SELECT salary FROM employees WHERE department_id = 10) AS dept_salaries;
+```
+
+### 36. Order by Ascending
+```sql
+SELECT * FROM table_name ORDER BY column_name ASC;
+```
+
+### 37. Order by Descending
+```sql
+SELECT * FROM table_name ORDER BY column_name DESC;
+```
+
+### 38. Limit the Number of Rows
+```sql
+SELECT * FROM table_name LIMIT 10;
+```
+
+### 39. Concatenate Strings
+```sql
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;
+```
+
+### 40. Convert String to Uppercase
+```sql
+SELECT UPPER(column_name) FROM table_name;
+```
+
+### 41. Convert String to Lowercase
+```sql
+SELECT LOWER(column_name) FROM table_name;
+```
+
+### 42. Length of a String
+```sql
+SELECT LENGTH(column_name) FROM table_name;
+```
+
+### 43. Substring from String
+```sql
+SELECT SUBSTRING(column_name, 1, 5) FROM table_name;
+```
+
+### 44. Get the Current Date
+```sql
+SELECT CURRENT_DATE;
+```
+
+### 45. Get the Current Time
+```sql
+SELECT CURRENT_TIME;
+```
+
+### 46. Add Days to a Date
+```sql
+SELECT DATE_ADD(current_date, INTERVAL 10 DAY);
+```
+
+### 47. Get Year from a Date
+```sql
+SELECT YEAR(date_column) FROM table_name;
+```
+
+### 48. Get Month from a Date
+```sql
+SELECT MONTH(date_column) FROM table_name;
+```
+
+### 49. Get Day of the Week from a Date
+```sql
+SELECT DAYOFWEEK(date_column) FROM table_name;
+```
+
+### 50. Join with Group By and COUNT
+```sql
+SELECT department, COUNT(*) AS number_of_employees
+FROM employees
+GROUP BY department;
+```
+
+### 51. Join with SUM
+```sql
+SELECT department, SUM(salary) AS total_salary
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id
+GROUP BY department;
+```
+
+### 52. Union (Combine Results from Two Queries)
+```sql
+SELECT column_name FROM table1
+UNION
+SELECT column_name FROM table2;
+```
+
+### 53. Intersection (Common Values from Two Queries)
+```sql
+SELECT column_name FROM table1
+INTERSECT
+SELECT column_name FROM table2;
+```
+
+### 54. Create a Table
+```sql
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype
+);
+```
+
+### 55. Alter Table to Add New Column
+```sql
+ALTER TABLE table_name ADD column_name datatype;
+```
+
+### 56. Drop a Table
+```sql
+DROP TABLE table_name;
+```
+
+### 57. Start a Transaction
+```sql
+START TRANSACTION;
+```
+
+### 58. Commit a Transaction
+```sql
+COMMIT;
+```
+
+### 59. Rollback a Transaction
+```sql
+ROLLBACK;
+```
+```
+
+This format is simple and suitable for direct use in a Markdown file on GitHub in STS. Each query is prefixed with a `###` header and the SQL code is wrapped in code blocks using ```sql. You can directly paste this into your Markdown file for easy reference and use.
 
  
  
