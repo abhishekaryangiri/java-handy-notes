@@ -1335,13 +1335,16 @@ MODIFY questionId INT NOT NULL AUTO_INCREMENT;
 ```
 ```
 
+
+
 ### Description:
+---
 - This script updates column names, removes unnecessary columns, and changes data types.
 - `question` table is renamed to `questions` to follow naming conventions.
 - Changes to `quiz_session` table to improve structure, drop redundant fields, and set `questionId` as the primary key with auto-increment.
   
 Make sure to run these SQL commands sequentially for the changes to take effect properly.
-
+---
 
 
 
@@ -1355,8 +1358,9 @@ CREATE DATABASE user_management;
 SELECT * FROM demo;
 USE question;
 DROP TABLE quiz_session;
-2. Create the question Table and Insert Data
-sql
+```
+###2. Create the question Table and Insert Data
+```sql
 Copy code
 CREATE TABLE question (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -1391,7 +1395,7 @@ INSERT INTO users (name, mobile_number, favorite_teacher, password) VALUES
 ('Aryan', '9238989898', 'Mann sir', 'password123');
 4. Create quiz_db Database and Use It
 sql
-Copy code
+
 CREATE DATABASE quiz_db;
 SHOW DATABASES;
 USE quiz_db;
