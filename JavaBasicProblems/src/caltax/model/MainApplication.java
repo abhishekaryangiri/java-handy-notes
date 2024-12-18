@@ -1,4 +1,4 @@
-package caltax;
+package caltax.model;
 
 import java.util.ArrayList;
 import java.util.List;

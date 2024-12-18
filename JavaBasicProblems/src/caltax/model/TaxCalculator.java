@@ -1,4 +1,4 @@
-package caltax;
+package caltax.model;
 
 
 public class TaxCalculator {

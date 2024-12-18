@@ -1,4 +1,4 @@
-package caltax;
+package caltax.model;
 
 
 // Represents an item with name, price, and tax-related properties.
