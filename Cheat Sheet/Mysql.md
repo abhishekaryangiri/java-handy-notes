@@ -1343,26 +1343,97 @@ MODIFY questionId INT NOT NULL AUTO_INCREMENT;
 Make sure to run these SQL commands sequentially for the changes to take effect properly.
 
 
+markdown
+Copy code
+# SQL Script for Managing User and Quiz Data
 
+This script demonstrates the creation and population of several databases and tables for a user management and quiz system.
 
+### 1. Create the `user_management` Database
+```sql
+CREATE DATABASE user_management;
+SELECT * FROM demo;
+USE question;
+DROP TABLE quiz_session;
+2. Create the question Table and Insert Data
+sql
+Copy code
+CREATE TABLE question (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
+    option1 VARCHAR(100) NOT NULL,
+    option2 VARCHAR(100) NOT NULL,
+    option3 VARCHAR(100) NOT NULL,
+    option4 VARCHAR(100) NOT NULL,
+    correct_option INT NOT NULL
+);
 
+INSERT INTO question (question, option1, option2, option3, option4, correct_option) VALUES
+('What is the default value of a boolean variable in Java?', 'true', 'false', '0', '1', 2),
+('Which of the following is not a valid data type in Java?', 'int', 'long', 'float', 'dec', 4),
+('Which method is used to start a thread in Java?', 'start()', 'run()', 'sleep()', 'initialize()', 1),
+('What is the size of a char in Java?', '8 bits', '16 bits', '32 bits', '64 bits', 2),
+('Which collection class allows duplicate elements?', 'HashSet', 'TreeSet', 'HashMap', 'ArrayList', 4),
+('Which of the following is used to declare an array in Java?', 'array[]', '[]array', 'Array[]', 'int[]', 4),
+('What is the output of the following code snippet: System.out.println(10 / 3)?', '3', '3.33', '3.0', '0', 1),
+('Which of these is used to define an interface in Java?', 'interface', 'implements', 'extends', 'defining', 1),
+('Which of the following is not a valid identifier in Java?', 'int', 'super', 'new', 'final', 3),
+('What is the correct syntax for a method in Java?', 'public static void method() {}', 'void static public method() {}', 'static void method() {}', 'public method() {}', 1),
+('Which of the following classes is used for storing key-value pairs in Java?', 'List', 'Set', 'Map', 'Queue', 3),
+('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
+3. Insert Data into users Table (from demo database)
+sql
+Copy code
+USE demo;
+INSERT INTO users (name, mobile_number, favorite_teacher, password) VALUES
+('Abhishek', '9898989898', 'Ram sir', 'password123'),
+('Amita', '7778989898', 'garg sir', 'password123'),
+('Aryan', '9238989898', 'Mann sir', 'password123');
+4. Create quiz_db Database and Use It
+sql
+Copy code
+CREATE DATABASE quiz_db;
+SHOW DATABASES;
+USE quiz_db;
+5. Check Existing Tables in quiz_db
+sql
+Copy code
+SELECT * FROM questionsquestion_seq;
+SELECT * FROM quiz_sessions;
+6. Create questions and quiz_sessions Tables
+sql
+Copy code
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
+    option_1 VARCHAR(100) NOT NULL,
+    option_2 VARCHAR(100) NOT NULL,
+    option_3 VARCHAR(100) NOT NULL,
+    option_4 VARCHAR(100) NOT NULL,
+    correct_option INT NOT NULL
+);
 
-
-
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
+CREATE TABLE quiz_sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    question_id INT NOT NULL,
+    selected_option INT NOT NULL,
+    is_correct BOOLEAN NOT NULL
+);
+7. Insert Data into questions Table
+sql
+Copy code
+INSERT INTO questions (question, option_1, option_2, option_3, option_4, correct_option) VALUES
+('What is the default value of a boolean variable in Java?', 'true', 'false', '0', '1', 2),
+('Which of the following is not a valid data type in Java?', 'int', 'long', 'float', 'dec', 4),
+('Which method is used to start a thread in Java?', 'start()', 'run()', 'sleep()', 'initialize()', 1),
+('What is the size of a char in Java?', '8 bits', '16 bits', '32 bits', '64 bits', 2),
+('Which collection class allows duplicate elements?', 'HashSet', 'TreeSet', 'HashMap', 'ArrayList', 4),
+('Which of the following is used to declare an array in Java?', 'array[]', '[]array', 'Array[]', 'int[]', 4),
+('What is the output of the following code snippet: System.out.println(10 / 3)?', '3', '3.33', '3.0', '0', 1),
+('Which of these is used to define an interface in Java?', 'interface', 'implements', 'extends', 'defining', 1),
+('Which of the following is not a valid identifier in Java?', 'int', 'super', 'new', 'final', 3),
+('What is the correct syntax for a method in Java?', 'public static void method() {}', 'void static public method() {}', 'static void method() {}', 'public method() {}', 1),
+('Which of the following classes is used for storing key-value pairs in Java?', 'List', 'Set', 'Map', 'Queue', 3),
+('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
 
