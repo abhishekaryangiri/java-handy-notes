@@ -86,6 +86,7 @@ Each basket's receipt is printed with the item details, sales taxes, and the fin
 Sales Taxes: 1.50
 Total: 29.83
 ```
+<<<<<<< HEAD
 
 # Output 2:
 ```html
@@ -104,3 +105,5 @@ Total: 65.15
 Sales Taxes: 6.70
 Total: 74.68
 ```
+=======
+>>>>>>> 019a527ca0e3aaef351c4b79ef702fe860bc4d33
