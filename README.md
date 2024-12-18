@@ -103,8 +103,8 @@ GET http://localhost:8080/api/quiz/result/7
 **Output (for userId = 7):**  
 ```json
 {
-    "Total Questions": 2,
-    "Correct Answers": 2,
+    "Total Questions": 1,
+    "Correct Answers": 1,
     "Incorrect Answers": 0
 }
 ```
