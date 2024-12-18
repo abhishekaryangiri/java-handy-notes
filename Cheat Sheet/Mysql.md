@@ -1266,6 +1266,84 @@ Make sure to understand the logic behind these queries and be ready to modify th
 
 These interview questions cover a wide range of SQL concepts including aggregations, subqueries, joins, and advanced filtering.
 
+---
+
+
+```markdown
+# SQL Script for Modifying Quiz Database
+
+This script performs several modifications to the quiz database, specifically to the `quiz_session` and `question` tables.
+
+### 1. Select all records from `quiz_session`
+```sql
+SELECT * FROM quiz_db.quiz_session;
+```
+
+### 2. Change the column `correct_option` to `correctOption` in `question` table
+```sql
+ALTER TABLE question 
+CHANGE correct_option correctOption VARCHAR(255);
+```
+
+### 3. Select all records from `question` table
+```sql
+SELECT * FROM question;
+```
+
+### 4. Rename `question` table to `questions`
+```sql
+RENAME TABLE question TO questions;
+```
+
+### 5. Select all records from `quiz_session` again to verify changes
+```sql
+SELECT * FROM quiz_session;
+```
+
+### 6. Modify `selected_option` to `selectedOption` and make it `NOT NULL`
+```sql
+ALTER TABLE quiz_session
+CHANGE selected_option selectedOption VARCHAR(255) NOT NULL;
+```
+
+### 7. Drop unused columns in `quiz_session` table
+```sql
+ALTER TABLE quiz_session DROP COLUMN selected_option;
+ALTER TABLE quiz_session DROP COLUMN question_id;
+ALTER TABLE quiz_session DROP COLUMN is_correct;
+ALTER TABLE quiz_session DROP COLUMN user_id;
+```
+
+### 8. Change the `questionId` column in `questions` table to `VARCHAR(255) NOT NULL`
+```sql
+ALTER TABLE questions
+CHANGE COLUMN questionId questionId VARCHAR(255) NOT NULL;
+```
+
+### 9. Modify `question_id` in `quiz_session` to `questionId` with `BIGINT NOT NULL`
+```sql
+ALTER TABLE quiz_session
+CHANGE question_id questionId BIGINT NOT NULL;
+```
+
+### 10. Modify `questionId` to be the primary key and auto-increment in `quiz_session`
+```sql
+ALTER TABLE quiz_session
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (questionId),
+MODIFY questionId INT NOT NULL AUTO_INCREMENT;
+```
+```
+
+### Description:
+- This script updates column names, removes unnecessary columns, and changes data types.
+- `question` table is renamed to `questions` to follow naming conventions.
+- Changes to `quiz_session` table to improve structure, drop redundant fields, and set `questionId` as the primary key with auto-increment.
+  
+Make sure to run these SQL commands sequentially for the changes to take effect properly.
+
+
+
 
 
 
