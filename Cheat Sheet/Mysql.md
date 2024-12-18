@@ -1267,7 +1267,7 @@ Make sure to understand the logic behind these queries and be ready to modify th
 These interview questions cover a wide range of SQL concepts including aggregations, subqueries, joins, and advanced filtering.
 
 ---
-
+Here’s how you can rewrite the SQL commands and descriptions in markdown format for your `.md` file:
 
 ```markdown
 # SQL Script for Modifying Quiz Database
@@ -1343,13 +1343,13 @@ MODIFY questionId INT NOT NULL AUTO_INCREMENT;
 Make sure to run these SQL commands sequentially for the changes to take effect properly.
 
 
-markdown
-Copy code
+
+
 # SQL Script for Managing User and Quiz Data
 
 This script demonstrates the creation and population of several databases and tables for a user management and quiz system.
 
-### 1. Create the `user_management` Database
+## 1. Create the `user_management` Database
 ```sql
 CREATE DATABASE user_management;
 SELECT * FROM demo;
@@ -1436,4 +1436,24 @@ INSERT INTO questions (question, option_1, option_2, option_3, option_4, correct
 ('What is the correct syntax for a method in Java?', 'public static void method() {}', 'void static public method() {}', 'static void method() {}', 'public method() {}', 1),
 ('Which of the following classes is used for storing key-value pairs in Java?', 'List', 'Set', 'Map', 'Queue', 3),
 ('Which access modifier allows access to a variable from any class?', 'private', 'protected', 'public', 'default', 3);
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
 
