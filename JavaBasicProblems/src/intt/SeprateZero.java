@@ -19,7 +19,11 @@ public static long moveZero(long num) {
 			nonZeroDig.append(c);
 		}
 	}
-	nonZeroDig.append("0".repeat(zeroCount));
+	  // Instead of using String.repeat(), manually append '0' characters
+	for(int i=0;i<zeroCount;i++) {
+		nonZeroDig.append('0');
+	}
+	//nonZeroDig.append("0".repeat(zeroCount));
 	return Long.parseLong(nonZeroDig.toString());
 	
 }
