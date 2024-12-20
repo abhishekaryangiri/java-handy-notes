@@ -3,7 +3,7 @@ package caltax.model;
 
 public class TaxCalculator {
 
-    public static double calculateTax(Item item) {
+    public static double calculateTax(Product item) {
         double tax = 0.0;
 
         if (!item.isExempt()) {
@@ -18,7 +18,7 @@ public class TaxCalculator {
         return roundToNearestFiveCents(tax);
     }
 
-    public static double calculatePriceWithTax(Item item) {
+    public static double calculatePriceWithTax(Product item) {
         return item.getPrice() + calculateTax(item);
     }
 
