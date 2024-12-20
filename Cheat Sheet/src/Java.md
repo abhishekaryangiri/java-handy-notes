@@ -1,6 +1,4 @@
 
-Here’s a cheat sheet for **Introduction to Java** with clear and easy definitions, code examples, and 10 interview questions at the end.
-
 ---
 
 # Introduction to Java Cheat Sheet
