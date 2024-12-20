@@ -498,7 +498,7 @@ public class Main {
 ```
 
 ### 5. **Polymorphism**
-```
+
 Polymorphism in Java
 Polymorphism is one of the four pillars of Object-Oriented Programming (OOP). It means "many forms" and refers to the ability of an object to take on different forms. In simple terms, polymorphism allows you to use the same method name for different types of tasks. It makes your code more flexible and reusable.
 
