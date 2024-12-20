@@ -513,10 +513,11 @@ The method name is the same, but the parameter list is different.
 It happens during compile time.
 It does not depend on the object but on the method signature.
 Example of Method Overloading:
-java
-Copy code
+
+```java
+
 class MathOperations {
-    
+
     // Method for adding two integers
     public int add(int a, int b) {
         return a + b;
@@ -532,7 +533,10 @@ class MathOperations {
         return a + b;
     }
 }
+```
 
+
+```java
 public class Main {
     public static void main(String[] args) {
         MathOperations math = new MathOperations();
@@ -547,6 +551,8 @@ public class Main {
         System.out.println(math.add(10.5, 20.5));  // Output: 31.0
     }
 }
+
+```
 In the example above, the add method is overloaded to perform addition with different numbers of parameters and different data types (integers and doubles).
 
 When is Method Overloading Used?
@@ -560,8 +566,8 @@ The method name and parameters must be the same in both the parent and child cla
 It occurs at runtime.
 It allows a subclass to provide its own implementation of a method.
 Example of Method Overriding:
-java
-Copy code
+
+```java
 class Animal {
     // Method in parent class
     public void sound() {
@@ -586,6 +592,7 @@ public class Main {
         dog.sound();  // Output: Dog barks
     }
 }
+```
 In this example, the sound method in the Dog class overrides the sound method of the Animal class. Although the object dog is of type Animal, the sound method of the Dog class is called because the object is actually an instance of Dog.
 
 When is Method Overriding Used?
