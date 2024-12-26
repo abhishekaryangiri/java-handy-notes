@@ -1,4 +1,4 @@
-package oops.oops01;
+package constructor;
 
 public class Client {
 	public static void main(String[] args) {

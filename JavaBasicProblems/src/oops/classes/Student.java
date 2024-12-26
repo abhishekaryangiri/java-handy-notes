@@ -1,4 +1,4 @@
-package oops.oops01;
+package oops.classes;
 
 public class Student {
 
@@ -12,6 +12,8 @@ public class Student {
 	public void study() {
 		System.out.println(studentName);
 	}
+	
+	 	
 	
 	public void fullDetails() {
 		System.out.println(studentName);
