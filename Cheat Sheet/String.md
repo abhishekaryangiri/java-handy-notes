@@ -48,15 +48,15 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
   
     - **`1. == operator`**:
     
-      **Purpose**:
-      - **Primitives**: Compares values.
-      - **Objects**: Compares references (memory address).
+      - **`Purpose`**:
+      - **`Primitives`**: Compares values.
+      - **`Objects`**: Compares references (memory address).
     
       **Key Points**:
       - **Objects**: Works at the memory address level.
       - **Primitives**: Compares actual values.
     
-    ### Example:
+    - **`Example`**
     
     ```java
     // Primitive comparison
@@ -70,13 +70,13 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
 
     - **`2. objects.equals() utility method`**:
     
-    **Purpose**: Null-safe comparison to avoid `NullPointerException`.
+    -**`Purpose`**: Null-safe comparison to avoid `NullPointerException`.
     
-    **Key Points**:
+    -**`Key Points`**:
     - Handles `null` values safely.
     - Ideal for null-safe comparisons.
     
-    ### Example:
+    -**`Example:`**
     
     ```java
     String s1 = null, s2 = "Hello";
@@ -86,15 +86,15 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
     
     ---
     - **`3. .equals() method`**: 
-    **Purpose**: Compares **content** of objects (logical equality).
+    - **`Purpose`**: Compares content of objects (logical equality).
     
-    **Default Behavior**: Checks reference equality in `Object`; overridden in many classes for content comparison.
+    - **`Default Behavior `**: Checks reference equality in `Object`; overridden in many classes for content comparison.
     
-    **Key Points**:
+    - **`Key Points`**:
     - Used for logical equality.
     - Can be overridden in custom classes.
     
-    ### Example:
+    - **`Example:`**
     
     ```java
     // Content comparison
