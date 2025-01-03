@@ -31,7 +31,8 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
   System.out.println(str.charAt(1));  // Output: 'e'
   ```
 
-- **`substring(startIndex, endIndex)`**: Returns a new string that is a substring of the original string.
+- **`substring(startIndex, endIndex)`**:
+- Returns a new string that is a substring of the original string.
   ```java
   String str = "Hello, World!";
   System.out.println(str.substring(7, 12));  // Output: 'World'
