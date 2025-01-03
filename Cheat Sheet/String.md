@@ -43,7 +43,66 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
   String str2 = "hello";
   System.out.println(str1.equals(str2));  // Output: true
   ```
+  1. == Operator
+Purpose:
 
+-Compares primitive data types for value equality.
+-Compares object references for reference equality (checks if two references point to the same memory location).
+Key Characteristics:
+
+-Works at a memory address level for objects.
+-Does not compare the actual content of objects.
+-For primitives, it checks the actual values.
+Example:
+
+```java
+// Primitive comparison
+int a = 5;
+int b = 5;
+System.out.println(a == b); // true (values are equal)
+
+// Object reference comparison
+String s1 = new String("Hello");
+String s2 = new String("Hello");
+```
+2. .equals() Method
+Purpose:
+-Used to compare the content of objects (logical equality), not their references.
+-Default implementation in Object class checks reference equality. However, many classes like String, Integer, and List override .equals() to compare content.
+Key Characteristics:
+-Used for logical equality comparisons.
+-Can be overridden in custom classes to define content-based equality.
+-Safe for comparing complex objects or strings.
+Example:
+```java
+// Content comparison
+String s1 = new String("Hello");
+String s2 = new String("Hello");
+System.out.println(s1.equals(s2)); // true (content is the same)
+
+// Custom object example
+Integer i1 = 100;
+Integer i2 = 100;
+System.out.println(i1.equals(i2)); // true (compares actual value)
+```
+Key Differences at a Glance
+Aspect	== Operator	.equals() Method
+What it compares	Reference equality for objects.	Content equality (if overridden).
+Use for primitives	Compares actual values.	N/A.
+Default behavior	Checks memory address for objects.	Checks memory address (default in Object).
+Can be overridden?	No.	Yes (commonly overridden in classes).
+Risk of null	Can throw NullPointerException.	Safe for null values (if handled).
+
+3. Objects.equals() Utility Method:
+A null-safe method introduced in Java 7 to avoid NullPointerException.
+Automatically handles null values in comparisons.
+
+```java
+String s1 = null;
+String s2 = "Hello";
+System.out.println(Objects.equals(s1, s2)); // false
+System.out.println(Objects.equals(s1, null)); // true
+```
 - **`equalsIgnoreCase(String other)`**: Compares two strings ignoring case.
   ```java
   String str1 = "HELLO";
