@@ -43,9 +43,7 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
   String str2 = "hello";
   System.out.println(str1.equals(str2));  // Output: true
   ```
-# Comparison of `==` Operator and `.equals()` Method
-
-## `==` Operator
+**== Operator**
 - **Purpose**: Compares:
   - **Primitives**: For value equality.
   - **Objects**: For reference equality (checks if two references point to the same memory location).
@@ -66,7 +64,7 @@ String s1 = new String("Hello");
 String s2 = new String("Hello");
 System.out.println(s1 == s2); // false (different references)
 ```
--**.equals() Method**:
+**.equals() Method**:
 **Purpose:** 
 - Compares content of objects (logical equality), not references.
 **Default Behavior:**
