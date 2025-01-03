@@ -66,14 +66,16 @@ String s1 = new String("Hello");
 String s2 = new String("Hello");
 System.out.println(s1 == s2); // false (different references)
 ```
-.equals() Method
-Purpose: Compares content of objects (logical equality), not references.
-Default Behavior: In Object class, it checks reference equality but is often overridden by classes like String, Integer, etc., to compare content.
-Key Points:
-Used for logical equality comparisons.
-Can be overridden in custom classes.
-Safe for comparing complex objects or strings.
-Example:
+-**.equals() Method**:
+**Purpose:** 
+- Compares content of objects (logical equality), not references.
+**Default Behavior:**
+  - In Object class, it checks reference equality but is often overridden by classes like String, Integer, etc., to compare content.
+**Key Points:**
+- Used for logical equality comparisons.
+- Can be overridden in custom classes.
+- Safe for comparing complex objects or strings.
+
 ```java
 // Content comparison
 String s1 = new String("Hello");
@@ -85,19 +87,22 @@ Integer i1 = 100;
 Integer i2 = 100;
 System.out.println(i1.equals(i2)); // true (compares actual value)
 ```
-Key Differences
-Aspect	== Operator	.equals() Method
-Comparison	Reference equality for objects.	Content equality (if overridden).
-Primitives	Compares actual values.	Not applicable.
-Default Behavior	Checks memory address for objects.	
-Checks memory address (default in Object).
-Overridable?	No.	Yes (commonly overridden).
-Null Handling	Can throw NullPointerException.	Safe for null values (if handled).
-Objects.equals() Utility Method
-Purpose: Null-safe method to compare objects, introduced in Java 7 to avoid NullPointerException.
-Key Points:
-Handles null values gracefully.
-Ideal for comparisons where null safety is critical.
+**Key Differences**
+- Aspect	== Operator	.equals() Method
+- Comparison	Reference equality for objects.	Content equality (if overridden).
+- Primitives	Compares actual values.	Not applicable.
+**Default Behavior:**
+- Checks memory address for objects.	
+- Checks memory address (default in Object).
+**Overridable?:**
+- No.	Yes (commonly overridden).
+-Null Handling	Can throw NullPointerException.	Safe for null values (if handled).
+-Objects.equals() Utility Method
+**Purpose:**
+- Null-safe method to compare objects, introduced in Java 7 to avoid NullPointerException.
+**Key Points:**
+- Handles null values gracefully.
+- Ideal for comparisons where null safety is critical.
 Example:
 ```java
 String s1 = null;
