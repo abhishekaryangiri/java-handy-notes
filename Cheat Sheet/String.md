@@ -39,7 +39,8 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
   ```
 
 - **`equals(String other)`**: Compares two strings for equality.
-      ```java
+
+  ```java
       String str1 = "hello";
       String str2 = "hello";
       System.out.println(str1.equals(str2));
