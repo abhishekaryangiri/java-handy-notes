@@ -31,18 +31,81 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
   System.out.println(str.charAt(1));  // Output: 'e'
   ```
 
-- **`substring(startIndex, endIndex)`**: Returns a new string that is a substring of the original string.
+- **`substring(startIndex, endIndex)`**:
+- Returns a new string that is a substring of the original string.
   ```java
   String str = "Hello, World!";
   System.out.println(str.substring(7, 12));  // Output: 'World'
   ```
 
 - **`equals(String other)`**: Compares two strings for equality.
+
   ```java
-  String str1 = "hello";
-  String str2 = "hello";
-  System.out.println(str1.equals(str2));  // Output: true
-  ```
+      String str1 = "hello";
+      String str2 = "hello";
+      System.out.println(str1.equals(str2));
+    // Output: true
+      ```
+  
+    - **`1. == operator`**:
+    
+      - **`Purpose`**:
+      - **`Primitives`**: Compares values.
+      - **`Objects`**: Compares references (memory address).
+    
+      **Key Points**:
+      - **Objects**: Works at the memory address level.
+      - **Primitives**: Compares actual values.
+    
+    - **`Example`**
+    
+    ```java
+    // Primitive comparison
+    int a = 5, b = 5;
+    System.out.println(a == b); // true
+    
+    // Object reference comparison
+    String s1 = new String("Hello"), s2 = new String("Hello");
+    System.out.println(s1 == s2); // false
+    ```
+
+    - **`2. objects.equals() utility method`**:
+    
+    -**`Purpose`**: Null-safe comparison to avoid `NullPointerException`.
+    
+    -**`Key Points`**:
+    - Handles `null` values safely.
+    - Ideal for null-safe comparisons.
+    
+    -**`Example:`**
+    
+    ```java
+    String s1 = null, s2 = "Hello";
+    System.out.println(Objects.equals(s1, s2)); // false
+    System.out.println(Objects.equals(s1, null)); // true
+    ```
+    
+    ---
+    - **`3. .equals() method`**: 
+    - **`Purpose`**: Compares content of objects (logical equality).
+    
+    - **`Default Behavior `**: Checks reference equality in `Object`; overridden in many classes for content comparison.
+    
+    - **`Key Points`**:
+    - Used for logical equality.
+    - Can be overridden in custom classes.
+    
+    - **`Example:`**
+    
+    ```java
+    // Content comparison
+    String s1 = new String("Hello"), s2 = new String("Hello");
+    System.out.println(s1.equals(s2)); // true
+    
+    // Custom object comparison
+    Integer i1 = 100, i2 = 100;
+    System.out.println(i1.equals(i2)); // true
+    ```
 
 - **`equalsIgnoreCase(String other)`**: Compares two strings ignoring case.
   ```java
