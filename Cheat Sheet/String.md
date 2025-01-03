@@ -43,7 +43,6 @@ Strings are one of the most commonly used data types in Java. A `String` in Java
       String str2 = "hello";
       System.out.println(str1.equals(str2));  // Output: true
       ```
-    ---
     - **`1. == operator`**:
     
       **Purpose**:
