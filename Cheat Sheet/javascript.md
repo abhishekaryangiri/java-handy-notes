@@ -744,3 +744,298 @@ Here’s a detailed list of **JavaScript interview questions** for developers, s
   ```
 
 --------------------------------------------
+
+### Q23: How do you use the `.map()` method in JavaScript?
+**Answer**: The `.map()` method is used to create a new array by applying a callback function to each element of an existing array.
+
+```javascript
+let numbers = [1, 2, 3, 4];
+let squaredNumbers = numbers.map(num => num * num);
+console.log(squaredNumbers); // Output: [1, 4, 9, 16]
+```
+Explanation:
+
+The map() method iterates over the numbers array.
+For each element, the callback function (num => num * num) is executed.
+A new array, squaredNumbers, is returned containing the squared values.
+
+### 24: How do you use the .filter() method in JavaScript?
+Answer: The .filter() method is used to create a new array containing elements that pass a specific test defined in the callback function.
+```javascript
+let numbers = [1, 2, 3, 4, 5];
+let evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers); // Output: [2, 4]
+```
+Explanation:
+
+The filter() method iterates over the numbers array.
+Each element is checked using the callback function (num => num % 2 === 0).
+Only elements that satisfy the condition (even numbers) are included in the new array evenNumbers.
+### Q25: How do you use the .reduce() method in JavaScript?
+Answer: The .reduce() method is used to reduce an array to a single value by executing a callback function on each element, with an accumulator carrying over the result.
+
+```javascript
+let numbers = [1, 2, 3, 4];
+let sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+console.log(sum); // Output: 10
+```
+### Q26: How do you create a `Map` and add key-value pairs?
+**Answer**: Use the `Map` object and its `.set()` method to add key-value pairs.
+
+```javascript
+let myMap = new Map();
+myMap.set("name", "Alice");
+myMap.set("age", 25);
+myMap.set("city", "New York");
+console.log(myMap);
+// Output: Map(3) { 'name' => 'Alice', 'age' => 25, 'city' => 'New York' }
+```
+### Q27: How do you access a value in a Map?
+Answer: Use the .get() method and pass the key.
+```javascript
+console.log(myMap.get("name")); // Output: Alice
+console.log(myMap.get("age"));  // Output: 25
+```
+### Q28: How do you check if a key exists in a Map?
+Answer: Use the .has() method.
+
+```javascript
+console.log(myMap.has("city"));  // Output: true
+console.log(myMap.has("country")); // Output: false
+```
+### Q29: How do you remove a key-value pair from a Map?
+Answer: Use the .delete() method.
+```javascript
+Copy code
+myMap.delete("age");
+console.log(myMap); 
+// Output: Map(2) { 'name' => 'Alice', 'city' => 'New York' }
+```
+### Q30: How do you iterate over a Map?
+Answer: Use the .forEach() method or for...of loops.
+```javascript
+Copy code
+// Using forEach
+myMap.forEach((value, key) => {
+  console.log(`${key}: ${value}`);
+});
+// Output:
+// name: Alice
+// city: New York
+// Using for...of
+for (let [key, value] of myMap) {
+  console.log(`${key}: ${value}`);
+}
+```
+### Q31: Create a Map to count the occurrences of each character in a string.
+Write a function that takes a string and returns a Map with characters as keys and their frequencies as values.
+```javascript
+function charFrequency(str) {
+  let frequencyMap = new Map();
+  for (let char of str) {
+    frequencyMap.set(char, (frequencyMap.get(char) || 0) + 1);
+  }
+  return frequencyMap;
+}
+console.log(charFrequency("hello"));
+// Output: Map(4) { 'h' => 1, 'e' => 1, 'l' => 2, 'o' => 1 }
+```
+### Q32: Find the first non-repeating character in a string using Map.
+Write a function that returns the first character with a frequency of 1.
+
+```javascrip
+function firstNonRepeatingChar(str) {
+  let frequencyMap = charFrequency(str);
+  for (let char of str) {
+    if (frequencyMap.get(char) === 1) {
+      return char;
+    }
+  }
+  return null;
+}
+console.log(firstNonRepeatingChar("swiss"));
+// Output: 'w'
+```
+### Q33: Use Map to group words by their length.
+Given an array of words, group them into a Map where the keys are word lengths and the values are arrays of words.
+```javascript
+function groupByLength(words) {
+  let lengthMap = new Map();
+  for (let word of words) {
+    let length = word.length;
+    if (!lengthMap.has(length)) {
+      lengthMap.set(length, []);
+    }
+    lengthMap.get(length).push(word);
+  }
+  return lengthMap;
+}
+console.log(groupByLength(["apple", "bat", "cat", "banana"]));
+// Output: Map(3) { 5 => [ 'apple' ], 3 => [ 'bat', 'cat' ], 6 => [ 'banana' ] }
+```
+### Q34: Implement a simple caching mechanism using Map.
+Create a function that caches the results of an expensive computation.
+```javascript
+function expensiveComputation(x) {
+  return x * x; // Simulate a complex computation
+}
+
+function cachedComputation(x, cache = new Map()) {
+  if (cache.has(x)) {
+    return cache.get(x);
+  }
+  let result = expensiveComputation(x);
+  cache.set(x, result);
+  return result;
+}
+let cache = new Map();
+console.log(cachedComputation(5, cache)); // Output: 25
+console.log(cachedComputation(5, cache)); // Cached result: 25
+```
+### Q35: Find common elements between two arrays using Map.
+Write a function that takes two arrays and returns their intersection.
+```javascript
+function findIntersection(arr1, arr2) {
+  let map = new Map();
+  let result = [];
+  for (let num of arr1) {
+    map.set(num, true);
+  }
+  
+  for (let num of arr2) {
+    if (map.has(num)) {
+      result.push(num);
+    }
+  }
+  return result;
+}
+console.log(findIntersection([1, 2, 3, 4], [3, 4, 5, 6]));
+// Output: [3, 4]
+```
+### Q36: Store User Data in a `Map` and Access It
+Create a `Map` to store user data with the `id` as the key and an object containing `name` and `email` as the value. Write a function to fetch user details by `id`.
+```javascript
+let users = new Map();
+users.set(1, { name: "Alice", email: "alice@example.com" });
+users.set(2, { name: "Bob", email: "bob@example.com" });
+users.set(3, { name: "Charlie", email: "charlie@example.com" });
+function getUserById(id) {
+  return users.get(id) || "User not found";
+}
+console.log(getUserById(2)); 
+// Output: { name: 'Bob', email: 'bob@example.com' }
+console.log(getUserById(4)); 
+// Output: User not found
+```
+### Q37: Access Users with Odd or Even IDs
+Write a function that filters and returns all users with odd or even id values from the Map.
+```javascript
+function getUsersByIdParity(users, isEven) {
+  let result = [];
+  for (let [id, data] of users) {
+    if ((id % 2 === 0) === isEven) {
+      result.push({ id: id, name: data.name, email: data.email });
+      // Using spread operator:
+      // result.push({ id, ...data });
+    }
+  }
+  return result;
+}
+
+console.log(getUsersByIdParity(users, true)); 
+// Output: [ { id: 2, name: 'Bob', email: 'bob@example.com' } ]
+console.log(getUsersByIdParity(users, false)); 
+// Output: [ { id: 1, name: 'Alice', email: 'alice@example.com' }, { id: 3, name: 'Charlie', email: 'charlie@example.com' } ]
+```
+### Q38: Find All Users with a Specific Email Domain
+Write a function that filters users by their email domain (e.g., "example.com") and returns the matching users.
+```javascript
+function getUsersByEmailDomain(users, domain) {
+  let result = [];
+  for (let [id, data] of users) {
+    if (data.email.endsWith(domain)) {
+      result.push({ id: id, name: data.name, email: data.email });
+      // Using spread operator:
+      // result.push({ id, ...data });
+    }
+  }
+  return result;
+}
+
+console.log(getUsersByEmailDomain(users, "example.com")); 
+// Output: [
+//   { id: 1, name: 'Alice', email: 'alice@example.com' },
+//   { id: 2, name: 'Bob', email: 'bob@example.com' },
+//   { id: 3, name: 'Charlie', email: 'charlie@example.com' }
+// ]
+```
+### Q39: Count Users by Name Length
+Write a function that groups and counts users based on the length of their names.
+```javascript
+function countUsersByNameLength(users) {
+  let nameLengthMap = new Map();
+  for (let [id, data] of users) {
+    let length = data.name.length;
+    if (!nameLengthMap.has(length)) {
+      nameLengthMap.set(length, 0);
+    }
+    nameLengthMap.set(length, nameLengthMap.get(length) + 1);
+  }
+  return nameLengthMap;
+}
+console.log(countUsersByNameLength(users)); 
+// Output: Map(2) { 5 => 2, 7 => 1 }
+```
+### Q40: Remove Users with Specific Conditions
+Write a function to remove all users with id greater than a given number from the Map.
+```javascript
+function removeUsersByIdCondition(users, maxId) {
+  for (let id of users.keys()) {
+    if (id > maxId) {
+      users.delete(id);
+    }
+  }
+}
+
+removeUsersByIdCondition(users, 2);
+console.log(users);
+// Output: Map(2) { 
+//   1 => { name: 'Alice', email: 'alice@example.com' }, 
+//   2 => { name: 'Bob', email: 'bob@example.com' } 
+// }
+```
+### Q341: Get Users Sorted by ID
+Write a function to return all users sorted by their id.
+```javascript
+function getUsersSortedById(users) {
+  let result = [];
+  let sortedEntries = Array.from(users.entries()).sort((a, b) => a[0] - b[0]);
+  for (let [id, data] of sortedEntries) {
+    result.push({ id: id, name: data.name, email: data.email });
+    // Using spread operator:
+    // result.push({ id, ...data });
+  }
+  return result;
+}
+
+console.log(getUsersSortedById(users)); 
+// Output: [
+//   { id: 1, name: 'Alice', email: 'alice@example.com' },
+//   { id: 2, name: 'Bob', email: 'bob@example.com' }
+// ]
+```
+### Q42: Check if All Users Have Valid Emails
+Write a function to verify if all users in the Map have a valid email (contain @ and a domain).
+```javascript
+function areAllEmailsValid(users) {
+  for (let data of users.values()) {
+    if (!data.email.includes("@") || !data.email.split("@")[1]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+console.log(areAllEmailsValid(users)); 
+// Output: true
+```
