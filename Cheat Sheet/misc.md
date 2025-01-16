@@ -397,3 +397,18 @@ Each strategy is designed to address a specific challenge when handling large-sc
 
 
 
+
+
+Import the .sql File: Use the SOURCE command to import the .sql file:
+
+```sql
+Copy
+Edit
+SOURCE /path/to/your/file.sql;
+Replace /path/to/your/file.sql with the full path to your .sql file.
+```
+Example:
+
+```sql
+SOURCE /home/user/backup.sql;
+```
