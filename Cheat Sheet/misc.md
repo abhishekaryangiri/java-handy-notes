@@ -10,7 +10,7 @@ One microservice makes an HTTP request to another microservice's exposed REST en
 Steps:
 
 Expose REST Endpoint in Microservice A:
-
+```java
 @RestController
 @RequestMapping("/service-a")
 public class ServiceAController {
@@ -19,9 +19,9 @@ public class ServiceAController {
         return "Response from Service A";
     }
 }
-
+```
 Consume REST API in Microservice B using RestTemplate or WebClient:
-
+```java
 @Service
 public class ServiceB {
     private final RestTemplate restTemplate;
@@ -39,7 +39,7 @@ public class ServiceB {
 public RestTemplate restTemplate() {
     return new RestTemplate();
 }
-
+```
 Service Discovery (Optional): Use tools like Eureka for service discovery and load balancing.
 
 
@@ -53,7 +53,7 @@ Two microservices communicate asynchronously via message queues (e.g., RabbitMQ,
 Steps:
 
 Microservice A (Publisher):
-
+```java
 @RestController
 @RequestMapping("/publisher")
 public class Publisher {
@@ -69,7 +69,7 @@ public class Publisher {
     }
 }
 
-Microservice B (Consumer):
+//Microservice B (Consumer):
 
 @Service
 public class Consumer {
@@ -79,7 +79,7 @@ public class Consumer {
     }
 }
 
-Configuration:
+//Configuration:
 
 @Configuration
 public class RabbitConfig {
@@ -89,7 +89,7 @@ public class RabbitConfig {
     }
 }
 
-
+```
 
 ---
 
