@@ -1,3 +1,4 @@
+
 In Spring Boot, two microservices typically connect and communicate using REST APIs or message queues. Here's an overview of the process:
 
 
