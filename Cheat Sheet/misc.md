@@ -638,3 +638,201 @@ GET /products to list all products
 For communication between these two microservices, you could use REST APIs. For example, the Product Service could call the User Service using RestTemplate or Feign Client (in a real-world scenario, for microservices orchestration, you might also integrate service discovery tools like Eureka and Zuul).
 
 
+
+
+
+नीचे दिए गए चरणों में हम Eureka का उपयोग करके दो माइक्रोसर्विसेज़ के बीच संचार को सरल तरीके से समझाएंगे। यह एक छोटा प्रोजेक्ट होगा, जिसमें एक Eureka Server, और दो माइक्रोसर्विसेज़ (Producer और Consumer) होंगे।
+
+
+---
+
+चरण 1: प्रोजेक्ट सेटअप
+
+1. Eureka Server प्रोजेक्ट
+
+
+2. Producer Service
+
+
+3. Consumer Service
+
+
+
+
+---
+
+चरण 2: आवश्यक डिपेंडेंसीज़ जोड़ें
+
+प्रत्येक प्रोजेक्ट के pom.xml में नीचे दिए गए डिपेंडेंसीज़ जोड़ें:
+
+Eureka Server (pom.xml)
+```java
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+```
+Producer और Consumer (pom.xml)
+```java
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+```
+> नोट: spring-cloud-dependencies BOM को <dependencyManagement> में जोड़ें:
+
+```java
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>2021.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+---
+
+चरण 3: Eureka Server बनाएं
+
+Application.properties
+```java
+server.port=8761
+spring.application.name=eureka-server
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+```
+Main Class
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
+}
+```
+
+---
+
+चरण 4: Producer Service बनाएं
+
+Application.properties
+```java
+server.port=8081
+spring.application.name=producer-service
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+```
+Controller Class
+```java
+@RestController
+public class ProducerController {
+    @GetMapping("/message")
+    public String getMessage() {
+        return "Hello from Producer!";
+    }
+}
+```java
+Main Class
+
+@SpringBootApplication
+@EnableEurekaClient
+public class ProducerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ProducerApplication.class, args);
+    }
+}
+```
+
+---
+
+चरण 5: Consumer Service बनाएं
+
+Application.properties
+```java
+server.port=8082
+spring.application.name=consumer-service
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+```
+RestTemplate Configuration
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+Controller Class
+```java
+@RestController
+public class ConsumerController {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/consume")
+    public String consumeMessage() {
+        String producerMessage = restTemplate.getForObject("http://producer-service/message", String.class);
+        return "Consumer received: " + producerMessage;
+    }
+}
+```
+Main Class
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class ConsumerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ConsumerApplication.class, args);
+    }
+}
+
+```
+---
+
+चरण 6: प्रोजेक्ट चलाएं
+
+1. Eureka Server: http://localhost:8761
+
+
+2. Producer Service: http://localhost:8081/message
+
+
+3. Consumer Service: http://localhost:8082/consume
+
+
+
+
+---
+
+आउटपुट
+
+1. Consumer Service को http://localhost:8082/consume पर कॉल करने पर आउटपुट मिलेगा:
+
+Consumer received: Hello from Producer!
+
+
+
+इस प्रोजेक्ट से Eureka का उपयोग करके माइक्रोसर्विसेज़ के बीच संचार को आसानी से समझ सकते हैं।
+
+
+
