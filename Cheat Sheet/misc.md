@@ -638,7 +638,7 @@ GET /products to list all products
 For communication between these two microservices, you could use REST APIs. For example, the Product Service could call the User Service using RestTemplate or Feign Client (in a real-world scenario, for microservices orchestration, you might also integrate service discovery tools like Eureka and Zuul).
 
 
-
+---
 
 
 नीचे दिए गए चरणों में हम Eureka का उपयोग करके दो माइक्रोसर्विसेज़ के बीच संचार को सरल तरीके से समझाएंगे। यह एक छोटा प्रोजेक्ट होगा, जिसमें एक Eureka Server, और दो माइक्रोसर्विसेज़ (Producer और Consumer) होंगे।
