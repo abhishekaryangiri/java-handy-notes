@@ -3,7 +3,7 @@ package interview;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Str01NonRepChar {
+public class FindNonRepChar {
 public static void main(String[] args) {
 	//find non repeating char.
     String str = "abhishekak";
