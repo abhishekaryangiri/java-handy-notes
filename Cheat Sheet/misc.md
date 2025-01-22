@@ -1,3 +1,4 @@
+
 In Spring Boot, two microservices typically connect and communicate using REST APIs or message queues. Here's an overview of the process:
 
 
@@ -410,3 +411,428 @@ Example:
 ```sql
 SOURCE /home/user/backup.sql;
 ```
+
+small microservices using REST APIs, simple example with two services: a User Service and a Product Service. Each will expose a REST API.
+
+1. User Service:
+
+We'll start by creating a basic User Service that allows for CRUD (Create, Read, Update, Delete) operations on user data.
+
+Step 1: Setup Spring Boot Project
+Use Spring Initializr (https://start.spring.io/) to generate a project with the following dependencies:
+
+Spring Web
+
+Spring Data JPA
+
+H2 Database (for simplicity, we will use an in-memory database)
+
+
+UserServiceApplication.java:
+
+package com.example.userservice;
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class UserServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(UserServiceApplication.class, args);
+    }
+}
+
+User.java (Entity):
+
+package com.example.userservice.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class User {
+    @Id
+    private Long id;
+    private String name;
+    private String email;
+
+    // Getters and Setters
+}
+
+UserRepository.java (JPA Repository):
+
+package com.example.userservice.repository;
+
+import com.example.userservice.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+}
+
+UserController.java (REST Controller):
+
+package com.example.userservice.controller;
+
+import com.example.userservice.model.User;
+import com.example.userservice.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userRepository.save(user);
+    }
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+    }
+}
+```
+
+---
+
+2. Product Service:
+
+Next, let's create a basic Product Service to manage products.
+```java
+ProductServiceApplication.java:
+
+package com.example.productservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ProductServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ProductServiceApplication.class, args);
+    }
+}
+
+Product.java (Entity):
+
+package com.example.productservice.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Product {
+    @Id
+    private Long id;
+    private String name;
+    private double price;
+
+    // Getters and Setters
+}
+
+ProductRepository.java (JPA Repository):
+
+package com.example.productservice.repository;
+
+import com.example.productservice.model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+}
+
+ProductController.java (REST Controller):
+
+package com.example.productservice.controller;
+
+import com.example.productservice.model.Product;
+import com.example.productservice.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping
+    public List<Product> getProducts() {
+        return productRepository.findAll();
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) {
+        return productRepository.save(product);
+    }
+
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        product.setId(id);
+        return productRepository.save(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productRepository.deleteById(id);
+    }
+}
+
+```
+---
+
+3. Run and Test the Microservices:
+
+Each service will run independently on different ports, for example:
+
+User Service: http://localhost:8080
+
+Product Service: http://localhost:8081
+
+
+
+You can use Postman or cURL to test the APIs.
+
+For example:
+
+POST /users to create a user
+
+GET /users to list all users
+
+POST /products to create a product
+
+GET /products to list all products
+
+
+4. Communicating Between Microservices:
+
+For communication between these two microservices, you could use REST APIs. For example, the Product Service could call the User Service using RestTemplate or Feign Client (in a real-world scenario, for microservices orchestration, you might also integrate service discovery tools like Eureka and Zuul).
+
+
+---
+
+
+नीचे दिए गए चरणों में हम Eureka का उपयोग करके दो माइक्रोसर्विसेज़ के बीच संचार को सरल तरीके से समझाएंगे। यह एक छोटा प्रोजेक्ट होगा, जिसमें एक Eureka Server, और दो माइक्रोसर्विसेज़ (Producer और Consumer) होंगे।
+
+
+---
+
+चरण 1: प्रोजेक्ट सेटअप
+
+1. Eureka Server प्रोजेक्ट
+
+
+2. Producer Service
+
+
+3. Consumer Service
+
+
+
+
+---
+
+चरण 2: आवश्यक डिपेंडेंसीज़ जोड़ें
+
+प्रत्येक प्रोजेक्ट के pom.xml में नीचे दिए गए डिपेंडेंसीज़ जोड़ें:
+
+Eureka Server (pom.xml)
+```java
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+```
+Producer और Consumer (pom.xml)
+```java
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+```
+> नोट: spring-cloud-dependencies BOM को <dependencyManagement> में जोड़ें:
+
+```java
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>2021.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+---
+
+चरण 3: Eureka Server बनाएं
+
+Application.properties
+```java
+server.port=8761
+spring.application.name=eureka-server
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+```
+Main Class
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
+}
+```
+
+---
+
+चरण 4: Producer Service बनाएं
+
+Application.properties
+```java
+server.port=8081
+spring.application.name=producer-service
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+```
+Controller Class
+```java
+@RestController
+public class ProducerController {
+    @GetMapping("/message")
+    public String getMessage() {
+        return "Hello from Producer!";
+    }
+}
+```java
+Main Class
+
+@SpringBootApplication
+@EnableEurekaClient
+public class ProducerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ProducerApplication.class, args);
+    }
+}
+```
+
+---
+
+चरण 5: Consumer Service बनाएं
+
+Application.properties
+```java
+server.port=8082
+spring.application.name=consumer-service
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+```
+RestTemplate Configuration
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+Controller Class
+```java
+@RestController
+public class ConsumerController {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/consume")
+    public String consumeMessage() {
+        String producerMessage = restTemplate.getForObject("http://producer-service/message", String.class);
+        return "Consumer received: " + producerMessage;
+    }
+}
+```
+Main Class
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class ConsumerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ConsumerApplication.class, args);
+    }
+}
+
+```
+---
+
+चरण 6: प्रोजेक्ट चलाएं
+
+1. Eureka Server: http://localhost:8761
+
+
+2. Producer Service: http://localhost:8081/message
+
+
+3. Consumer Service: http://localhost:8082/consume
+
+
+
+
+---
+
+आउटपुट
+
+1. Consumer Service को http://localhost:8082/consume पर कॉल करने पर आउटपुट मिलेगा:
+
+Consumer received: Hello from Producer!
+
+
+
+इस प्रोजेक्ट से Eureka का उपयोग करके माइक्रोसर्विसेज़ के बीच संचार को आसानी से समझ सकते हैं।
+
+
+
