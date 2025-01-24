@@ -15,6 +15,6 @@ public class TSC01OneLoop {
 		int[] arr = {1,2,3,4,5,6,7,8,9,10};
 		System.out.println(sumOfArray(arr));
 	}
-
+//time complexity: every element accessing time-compl:- o(n)
 
 }
