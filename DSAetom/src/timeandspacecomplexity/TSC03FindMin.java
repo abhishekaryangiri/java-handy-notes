@@ -15,3 +15,4 @@ public static void main(String[] args) {
 	System.out.println(findMin(arr));
 }
 }
+//time complexity: O(n), bcz comparing each elements
