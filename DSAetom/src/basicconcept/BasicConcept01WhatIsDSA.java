@@ -17,5 +17,22 @@ public static void main(String[] args) {
 	//ex. - if we r creating a new list and copy data, it takes extra memory.
 	//ex if we want to search a person cont num in mobile. if list is sorted it will take less time, o9log n . 
 	//if it is unsorted takes more time O(n).
+	
+	
+	/*
+	 * Binary search is an efficient algorithm used to find a target value in a
+	 * sorted list. It works by repeatedly dividing the search interval in half:
+	 * 
+	 * Start with the middle element of the list. If the target is equal to the
+	 * middle element, you're done. If the target is smaller, repeat the search on
+	 * the left half of the list. If the target is larger, repeat the search on the
+	 * right half of the list. This process continues until the target is found or
+	 * the search interval is empty.
+	 * 
+	 * Time Complexity: O(log n), meaning it takes much less time than checking
+	 * every element one by one, especially with large lists.
+	 */
+	
+	//notations: 1. big-o, omega, theta
 }
 }
