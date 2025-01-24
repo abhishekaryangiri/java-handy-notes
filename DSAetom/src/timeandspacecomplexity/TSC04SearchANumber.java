@@ -19,5 +19,6 @@ public static void main(String[] args) {
 	}else {
 		System.out.println(targetNum+" element found on index "+ result);
 	}
+	//t& c: O(n)- bcz comparing each elements
 }
 }
