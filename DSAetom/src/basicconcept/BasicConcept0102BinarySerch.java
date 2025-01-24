@@ -14,6 +14,7 @@ public class BasicConcept0102BinarySerch {
 			System.out.println("result not found");
 		}else {
 			System.out.println(target+ " result found at ["+result+"] index.");
+			System.out.println(arr.length);
 		}
 	}
 
