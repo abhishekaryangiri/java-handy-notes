@@ -9,8 +9,9 @@ public class AL03ChangeElem {
 		qtya.add(50);
 		qtya.add(80);
 		
-		qtya.set(1, 200);
+		qtya.set(1, 200);//updating data at specific index
 		System.out.println(qtya);
+		System.out.println(qtya.size());//know size of list
 	}
 
 }
