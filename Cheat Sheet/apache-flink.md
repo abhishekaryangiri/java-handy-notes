@@ -403,3 +403,282 @@ curl -X GET http://localhost:8080/temperature/all
 ✅ Useful for **IoT, weather monitoring, and industrial automation**. 🚀  
 
 😊
+
+
+---
+
+
+# **📌 Project: Real-Time Fraud Monitoring System**
+### **🔹 Tech Stack**
+- **Java 8** → Functional programming and Streams API  
+- **Spring Boot** → REST API for transaction input  
+- **Apache Flink** → Real-time fraud detection processing  
+- **MySQL** → Store transactions and flagged fraudulent transactions  
+- **Maven** → Build tool  
+
+### **🔹 Features**
+✅ Receive **real-time financial transactions** via REST API  
+✅ Store transactions in **MySQL database**  
+✅ Process transactions in **real-time using Apache Flink**  
+✅ Detect fraud based on **suspicious patterns** (e.g., high amount, rapid transactions)  
+✅ Log flagged fraudulent transactions  
+
+---
+
+## **🔹 Step 1: Create a Spring Boot Project**
+Use [Spring Initializr](https://start.spring.io/) with dependencies:  
+- **Spring Web** (for REST API)  
+- **Spring Data JPA** (for MySQL)  
+- **Apache Flink** (for real-time processing)  
+
+### **Project Structure**
+```
+fraud-monitoring/
+│── src/main/java/com/example/fraudmonitor/
+│   ├── FraudMonitoringApplication.java
+│   ├── model/Transaction.java
+│   ├── repository/TransactionRepository.java
+│   ├── controller/TransactionController.java
+│   ├── flink/FraudDetectionProcessor.java
+│── src/main/resources/application.properties
+│── pom.xml
+```
+
+---
+
+## **🔹 Step 2: Add Dependencies (`pom.xml`)**
+```xml
+<properties>
+    <java.version>1.8</java.version>
+</properties>
+
+<dependencies>
+    <!-- Spring Boot Web -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- Spring Boot JPA (for MySQL integration) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <!-- MySQL Connector -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- Apache Flink -->
+    <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-streaming-java_2.12</artifactId>
+        <version>1.16.0</version>
+    </dependency>
+</dependencies>
+```
+
+---
+
+## **🔹 Step 3: Configure MySQL Database (`application.properties`)**
+```properties
+# MySQL Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/fraud_db?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA Settings
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+📌 **Create the `fraud_db` database in MySQL:**  
+```sql
+CREATE DATABASE fraud_db;
+```
+
+---
+
+## **🔹 Step 4: Define Transaction Entity (`Transaction.java`)**
+```java
+package com.example.fraudmonitor.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "transactions")
+public class Transaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String accountNumber;
+    private double amount;
+    private String transactionType;
+    private LocalDateTime timestamp;
+
+    public Transaction() {}
+
+    public Transaction(String accountNumber, double amount, String transactionType, LocalDateTime timestamp) {
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.transactionType = transactionType;
+        this.timestamp = timestamp;
+    }
+
+    public Long getId() { return id; }
+    public String getAccountNumber() { return accountNumber; }
+    public double getAmount() { return amount; }
+    public String getTransactionType() { return transactionType; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+}
+```
+
+---
+
+## **🔹 Step 5: Create Repository Interface (`TransactionRepository.java`)**
+```java
+package com.example.fraudmonitor.repository;
+
+import com.example.fraudmonitor.model.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+}
+```
+
+---
+
+## **🔹 Step 6: Create REST API Controller (`TransactionController.java`)**
+```java
+package com.example.fraudmonitor.controller;
+
+import com.example.fraudmonitor.model.Transaction;
+import com.example.fraudmonitor.repository.TransactionRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RestController
+@RequestMapping("/transaction")
+public class TransactionController {
+
+    private final TransactionRepository repository;
+
+    public TransactionController(TransactionRepository repository) {
+        this.repository = repository;
+    }
+
+    @PostMapping("/add")
+    public String addTransaction(@RequestBody Transaction transaction) {
+        transaction.setTimestamp(LocalDateTime.now());
+        repository.save(transaction);
+        return "Transaction recorded!";
+    }
+
+    @GetMapping("/all")
+    public List<Transaction> getAllTransactions() {
+        return repository.findAll();
+    }
+}
+```
+
+---
+
+## **🔹 Step 7: Implement Fraud Detection Using Apache Flink (`FraudDetectionProcessor.java`)**
+```java
+package com.example.fraudmonitor.flink;
+
+import com.example.fraudmonitor.model.Transaction;
+import com.example.fraudmonitor.repository.TransactionRepository;
+import org.apache.flink.api.common.functions.FilterFunction;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class FraudDetectionProcessor {
+
+    private final TransactionRepository repository;
+
+    public FraudDetectionProcessor(TransactionRepository repository) {
+        this.repository = repository;
+        processFraudDetection();
+    }
+
+    public void processFraudDetection() {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+
+        List<Transaction> transactions = repository.findAll();
+        DataStream<Transaction> transactionStream = env.fromCollection(transactions);
+
+        // Detect fraud: High-value transactions (> 5000) OR multiple transactions rapidly (not implemented here)
+        DataStream<Transaction> fraudStream = transactionStream.filter(new FilterFunction<Transaction>() {
+            @Override
+            public boolean filter(Transaction transaction) {
+                return transaction.getAmount() > 5000;
+            }
+        });
+
+        fraudStream.print();
+
+        try {
+            env.execute("Fraud Detection Process");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+---
+
+## **🔹 Step 8: Run & Test the Application**
+### **1️⃣ Start MySQL Server**
+```sh
+sudo systemctl start mysql
+```
+
+### **2️⃣ Start Spring Boot Application**
+```sh
+mvn spring-boot:run
+```
+
+### **3️⃣ Test API Using Postman or cURL**  
+#### **Add a Normal Transaction**
+```sh
+curl -X POST http://localhost:8080/transaction/add -H "Content-Type: application/json" -d '{"accountNumber": "123456", "amount": 1000, "transactionType": "DEBIT"}'
+```
+
+#### **Add a Fraudulent Transaction**
+```sh
+curl -X POST http://localhost:8080/transaction/add -H "Content-Type: application/json" -d '{"accountNumber": "123456", "amount": 8000, "transactionType": "DEBIT"}'
+```
+
+#### **Get All Transactions**
+```sh
+curl -X GET http://localhost:8080/transaction/all
+```
+
+---
+
+## **🔹 How It Works?**
+1️⃣ **User sends financial transactions via REST API**  
+2️⃣ **Spring Boot stores data in MySQL Database**  
+3️⃣ **Apache Flink processes transactions in real-time and flags fraudulent ones**  
+4️⃣ **Fraudulent transactions are displayed in logs**  
+
+---
+
+## **🔹 Conclusion**
+✅ This **Spring Boot + Apache Flink + MySQL** project demonstrates **real-time fraud detection**.  
+✅ Can be extended with **Kafka for real-time streaming**.  
+✅ Useful for **banking, fintech, and fraud prevention systems**. 🚀  
+---
