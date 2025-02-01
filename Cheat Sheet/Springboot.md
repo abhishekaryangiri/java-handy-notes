@@ -654,5 +654,86 @@ public ResponseEntity<User> getUser(@RequestParam Long id) {
 
 ---------------------------------------------
 
+To create a Custom Actuator Endpoint in Spring Boot, follow these steps:
+
+1. Add Dependencies
+
+Add spring-boot-starter-actuator to pom.xml:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+2. Create a Custom Endpoint
+
+In Spring Boot 2.x and 3.x, use the @Endpoint annotation to create a new Actuator endpoint:
+
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.stereotype.Component;
+
+@Component
+@Endpoint(id = "customEndpoint")
+public class CustomActuatorEndpoint {
+
+    @ReadOperation
+    public String customHealthCheck() {
+        return "Custom Actuator is UP!";
+    }
+}
+
+@Endpoint(id = "customEndpoint") → Defines a new customEndpoint.
+
+@ReadOperation → Creates a GET API for this endpoint.
+
+
+3. Enable Actuator in application.properties
+
+management.endpoints.web.exposure.include=*
+
+> Use * to enable all Actuator endpoints.
+If you want to enable only customEndpoint, use include=customEndpoint.
+
+
+
+4. Run and Test
+
+Start the Spring Boot application and access the endpoint via a browser or Postman:
+
+http://localhost:8080/actuator/customEndpoint
+
+Output:
+
+Custom Actuator is UP!
+
+Bonus: Custom Health Indicator
+
+To monitor a service or custom logic, implement a custom health check:
+
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CustomHealthIndicator implements HealthIndicator {
+
+    @Override
+    public Health health() {
+        boolean serviceRunning = checkCustomService();
+        return serviceRunning ? Health.up().withDetail("Service", "Running").build()
+                              : Health.down().withDetail("Service", "Stopped").build();
+    }
+
+    private boolean checkCustomService() {
+        // Add custom logic (DB, API, etc.)
+        return true;
+    }
+}
+
+Now, when you hit http://localhost:8080/actuator/health, it will include your custom health status.
+
+
+---
 
 
