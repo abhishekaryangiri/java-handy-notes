@@ -25,18 +25,18 @@ npm install express pg cors dotenv body-parser
 Step 2: Configure Database
 
 Create a PostgreSQL table:
-
+```sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100),
     email VARCHAR(100),
     phone VARCHAR(15)
 );
-
+```
 Step 3: Create .env File
 
 Store database credentials:
-
+```javascript
 DB_USER=your_username
 DB_PASSWORD=your_password
 DB_HOST=localhost
@@ -44,7 +44,7 @@ DB_PORT=5432
 DB_NAME=your_database
 
 Step 4: Create server.js
-
+```javascript
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -92,6 +92,7 @@ app.get("/users", async (req, res) => {
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+```
 
 
 ---
@@ -105,7 +106,7 @@ cd frontend
 npm install axios
 
 Step 1: Create App.js
-
+```javascript
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -162,7 +163,7 @@ function App() {
 }
 
 export default App;
-
+```
 
 ---
 
@@ -195,11 +196,6 @@ This is a full-stack mini-project using React, Node.js, and PostgreSQL.
 
 ---
 
-अब मैं इस प्रोजेक्ट को Spring Boot (Java) + React + PostgreSQL से कनेक्ट करूंगा।
-
-
----
-
 1. Backend: Spring Boot + PostgreSQL
 
 Step 1: Create Spring Boot Project
@@ -221,19 +217,21 @@ Lombok
 Step 2: Configure application.properties
 
 PostgreSQL से कनेक्ट करने के लिए:
-
+```properties
 server.port=8080
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
 spring.datasource.username=your_username
 spring.datasource.password=your_password
-spring.datasource.driver-class-name=org.postgresql.Driver
-
+spring.datasource.driver-class-name=org.postgresq
+```
+l.Driver
+```properties
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto=update
-
+```
 Step 3: Create Entity Class (User.java)
-
+```java
 package com.example.model;
 
 import jakarta.persistence.*;
@@ -252,9 +250,9 @@ public class User {
     private String email;
     private String phone;
 }
-
+```
 Step 4: Create Repository (UserRepository.java)
-
+```java
 package com.example.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -288,7 +286,7 @@ public class UserService {
         return userRepository.findAll();
     }
 }
-
+```java
 Step 6: Create Controller (UserController.java)
 
 package com.example.controller;
@@ -318,7 +316,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 }
-
+```
 
 ---
 
