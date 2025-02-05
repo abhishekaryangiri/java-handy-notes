@@ -18,10 +18,10 @@ Frontend: React.js
 Step 1: Install Dependencies
 
 Run this in the backend folder:
-
+```sql
 npm init -y
 npm install express pg cors dotenv body-parser
-
+```
 Step 2: Configure Database
 
 Create a PostgreSQL table:
@@ -36,13 +36,13 @@ CREATE TABLE users (
 Step 3: Create .env File
 
 Store database credentials:
-```javascript
+```env
 DB_USER=your_username
 DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=your_database
-
+```
 Step 4: Create server.js
 ```javascript
 require("dotenv").config();
