@@ -519,6 +519,7 @@ System.out.println(list);  // Output: [cherry, banana, apple]
 
 ---
 
+
 ### **Conclusion**
 
 These interview questions cover various core topics related to Java Collections and will help you prepare for job interviews. Understanding the core concepts such as Lists, Sets, Maps, Iterators, and methods like `add()`, `remove()`, `size()`, etc., is critical for efficiently handling data in Java.
