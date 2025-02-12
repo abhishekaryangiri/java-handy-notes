@@ -1,6 +1,7 @@
 Here’s a comprehensive **AWS Cheat Sheet** for a **Full Stack Java Developer**. This cheat sheet covers AWS services that are frequently used in backend and frontend development for Java applications. It includes services for computing, storage, databases, networking, monitoring, deployment, and more.
 
 
+
 ---
 
 ## **1. Amazon EC2 (Elastic Compute Cloud)**  
