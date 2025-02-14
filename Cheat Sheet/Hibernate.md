@@ -1,5 +1,6 @@
 Here’s a **comprehensive Hibernate cheat sheet**, covering key concepts and topics with detailed explanations. Hibernate is an object-relational mapping (ORM) framework for Java, and it simplifies the interaction with relational databases.
 
+
 ---
 
 ### **1. What is Hibernate?**
