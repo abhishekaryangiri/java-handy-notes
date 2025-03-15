@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<struts-config>
+    <form-beans>
+        <form-bean name="pensionersForm" type="com.nsap.forms.PensionersForm"/>
+    </form-beans>
+
+    <action-mappings>
+        <action path="/showPensioners" type="com.nsap.actions.PensionersAction" 
+                name="pensionersForm" scope="request" validate="false">
+            <forward name="success" path="/jsp/pensioners.jsp"/>
+        </action>
+    </action-mappings>
+</struts-config>
