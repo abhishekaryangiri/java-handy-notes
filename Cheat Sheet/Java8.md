@@ -19,6 +19,20 @@ Java 8 introduced several powerful features that greatly enhanced the language a
 (int a, int b) -> a + b;
 ```
 
+```java
+@FunctionalInterface
+interface Calc {
+    int add(int a, int b);
+}
+
+class Test {
+    public static void main(String[] args) {
+        Calc c = (a, b) -> a + b;
+        System.out.println(c.add(10, 20));
+    }
+}
+```
+
 - **Usage**: You can use lambda expressions with **functional interfaces** such as `Runnable`, `Callable`, `Comparator`, etc.
 
 ---
