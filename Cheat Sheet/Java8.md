@@ -3,7 +3,6 @@
 Java 8 introduced several powerful features that greatly enhanced the language and made it more functional and expressive. Below is a cheat sheet that covers the key features of Java 8 with detailed explanations.
 
 ---
-
 ### **1. Lambda Expressions**
 
 - **Definition**: Lambda expressions provide a clear and concise way to represent an instance of a functional interface (an interface with a single abstract method). It allows us to treat functionality as a method argument or to create a short function.
