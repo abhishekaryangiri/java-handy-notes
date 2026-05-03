@@ -1,4 +1,3 @@
-
 # JDBC Complete Interview Revision Notes
 
 # 1. JDBC Introduction
@@ -985,6 +984,813 @@ public class JdbcDemo {
     }
 }
 ```
+
+---
+
+# 23. Batch Processing
+
+## What is Batch Processing?
+
+Batch Processing means executing multiple SQL queries together in one batch.
+
+Instead of sending queries one by one to database, JDBC sends all queries together.
+
+---
+
+## Why Batch Processing?
+
+Advantages:
+
+* Faster execution
+* Reduces database round trips
+* Improves performance
+* Useful for bulk insert/update
+
+---
+
+## Example
+
+```java
+Statement st = con.createStatement();
+
+st.addBatch("insert into emp values(101, 'Rahul')");
+st.addBatch("insert into emp values(102, 'Aman')");
+st.addBatch("insert into emp values(103, 'Ravi')");
+
+st.executeBatch();
+```
+
+---
+
+## PreparedStatement Batch Example
+
+```java
+PreparedStatement ps = con.prepareStatement(
+    "insert into emp values(?, ?)"
+);
+
+ps.setInt(1, 101);
+ps.setString(2, "Rahul");
+ps.addBatch();
+
+ps.setInt(1, 102);
+ps.setString(2, "Aman");
+ps.addBatch();
+
+ps.executeBatch();
+```
+
+---
+
+## Interview Question
+
+### Where is Batch Processing used?
+
+Used in:
+
+* Payroll systems
+* Bulk employee insertion
+* CSV/Excel data upload
+* Banking systems
+
+---
+
+# 24. Transaction Management
+
+## What is Transaction?
+
+A transaction is a group of SQL operations executed as a single unit.
+
+If all queries succeed -> commit
+If any query fails -> rollback
+
+---
+
+## Real Life Example
+
+### Bank Transfer
+
+```text
+Withdraw money from Account A
+Deposit money into Account B
+```
+
+If second query fails, first query should also undo.
+
+---
+
+## Transaction Methods
+
+```java
+con.setAutoCommit(false);
+con.commit();
+con.rollback();
+```
+
+---
+
+## Complete Example
+
+```java
+try {
+
+    con.setAutoCommit(false);
+
+    Statement st = con.createStatement();
+
+    st.executeUpdate(
+        "update account set balance=balance-1000 where id=1"
+    );
+
+    st.executeUpdate(
+        "update account set balance=balance+1000 where id=2"
+    );
+
+    con.commit();
+
+} catch(Exception e) {
+
+    con.rollback();
+}
+```
+
+---
+
+## Interview Answer
+
+"Transaction management ensures data consistency by executing multiple SQL queries as one unit."
+
+---
+
+# 25. AutoCommit
+
+## What is AutoCommit?
+
+By default, JDBC automatically commits every SQL query.
+
+Default value:
+
+```text
+true
+```
+
+---
+
+## Disable AutoCommit
+
+```java
+con.setAutoCommit(false);
+```
+
+---
+
+## Why Disable?
+
+Needed when multiple queries should execute together.
+
+---
+
+## Interview Question
+
+### What is default AutoCommit mode?
+
+Default AutoCommit mode is true.
+
+---
+
+# 26. commit()
+
+## What is commit()?
+
+commit() permanently saves transaction changes into database.
+
+---
+
+## Example
+
+```java
+con.commit();
+```
+
+---
+
+## Interview Answer
+
+commit() permanently saves all transaction operations.
+
+---
+
+# 27. rollback()
+
+## What is rollback()?
+
+rollback() undoes all transaction changes.
+
+---
+
+## Example
+
+```java
+con.rollback();
+```
+
+---
+
+## Use Case
+
+Used when exception occurs.
+
+---
+
+## Interview Answer
+
+rollback() restores database to previous state if transaction fails.
+
+---
+
+# 28. SQLException Handling
+
+## What is SQLException?
+
+SQLException handles database-related exceptions.
+
+---
+
+## Example
+
+```java
+try {
+
+    Connection con = DriverManager.getConnection(url, user, pass);
+
+} catch(SQLException e) {
+
+    e.printStackTrace();
+}
+```
+
+---
+
+## Important Methods
+
+```java
+e.getMessage();
+e.getErrorCode();
+e.getSQLState();
+```
+
+---
+
+## Interview Question
+
+### Why SQLException occurs?
+
+Possible reasons:
+
+* Wrong SQL query
+* Database connection issue
+* Wrong credentials
+* Driver missing
+
+---
+
+# 29. ResultSetMetaData
+
+## What is ResultSetMetaData?
+
+Used to get information about table columns.
+
+---
+
+## Example
+
+```java
+ResultSet rs = st.executeQuery("select * from emp");
+
+ResultSetMetaData rsmd = rs.getMetaData();
+
+System.out.println(rsmd.getColumnCount());
+System.out.println(rsmd.getColumnName(1));
+```
+
+---
+
+## Important Methods
+
+| Method              | Purpose       |
+| ------------------- | ------------- |
+| getColumnCount()    | Total columns |
+| getColumnName()     | Column name   |
+| getColumnTypeName() | Data type     |
+
+---
+
+## Interview Answer
+
+ResultSetMetaData provides metadata information about ResultSet columns.
+
+---
+
+# 30. DatabaseMetaData
+
+## What is DatabaseMetaData?
+
+Provides information about database.
+
+---
+
+## Example
+
+```java
+DatabaseMetaData dbmd = con.getMetaData();
+
+System.out.println(dbmd.getDatabaseProductName());
+System.out.println(dbmd.getDriverName());
+```
+
+---
+
+## Information Retrieved
+
+* Database name
+* Driver name
+* Database version
+* Supported features
+
+---
+
+## Interview Answer
+
+DatabaseMetaData provides metadata about database and JDBC driver.
+
+---
+
+# 31. Stored Procedures
+
+## What is Stored Procedure?
+
+A stored procedure is precompiled SQL stored inside database.
+
+---
+
+## Advantages
+
+* Faster execution
+* Reusable
+* Better security
+* Reduced network traffic
+
+---
+
+## JDBC Example
+
+```java
+CallableStatement cs = con.prepareCall("{call getEmployee()}");
+
+ResultSet rs = cs.executeQuery();
+```
+
+---
+
+## Interview Answer
+
+Stored procedures are database-side programs executed using CallableStatement.
+
+---
+
+# 32. Connection Pooling
+
+## What is Connection Pooling?
+
+Connection pooling means reusing database connections.
+
+Instead of creating new connection every time, existing connections are reused.
+
+---
+
+## Why Needed?
+
+Creating DB connection is expensive.
+
+Connection pooling improves:
+
+* Performance
+* Scalability
+* Speed
+
+---
+
+## Popular Connection Pools
+
+* HikariCP
+* Apache DBCP
+* C3P0
+
+---
+
+## Interview Question
+
+### Why connection pooling is used?
+
+To improve application performance by reusing database connections.
+
+---
+
+# 33. DataSource
+
+## What is DataSource?
+
+DataSource is an alternative to DriverManager.
+
+Used mainly in enterprise applications.
+
+Supports:
+
+* Connection pooling
+* Better resource management
+
+---
+
+## Example
+
+```java
+DataSource ds;
+
+Connection con = ds.getConnection();
+```
+
+---
+
+## Interview Answer
+
+DataSource is preferred over DriverManager in enterprise applications because it supports connection pooling.
+
+---
+
+# 34. try-with-resources
+
+## What is try-with-resources?
+
+Automatically closes JDBC resources.
+
+---
+
+## Example
+
+```java
+try(
+    Connection con = DriverManager.getConnection(url, user, pass);
+    PreparedStatement ps = con.prepareStatement("select * from emp");
+) {
+
+}
+```
+
+---
+
+## Advantages
+
+* Cleaner code
+* Automatic resource closing
+* Prevents memory leak
+
+---
+
+## Interview Question
+
+### Why use try-with-resources?
+
+To automatically close resources like Connection, Statement, and ResultSet.
+
+---
+
+# 35. JDBC with MySQL/PostgreSQL
+
+## MySQL Driver
+
+```java
+Class.forName("com.mysql.cj.jdbc.Driver");
+```
+
+---
+
+## MySQL URL
+
+```java
+jdbc:mysql://localhost:3306/test
+```
+
+---
+
+## PostgreSQL Driver
+
+```java
+Class.forName("org.postgresql.Driver");
+```
+
+---
+
+## PostgreSQL URL
+
+```java
+jdbc:postgresql://localhost:5432/test
+```
+
+---
+
+## Interview Question
+
+### Difference in JDBC for MySQL and PostgreSQL?
+
+Mainly driver class name and JDBC URL differ.
+
+---
+
+# 36. DAO Pattern
+
+## What is DAO?
+
+DAO = Data Access Object.
+
+Used to separate database logic from business logic.
+
+---
+
+## Benefits
+
+* Clean architecture
+* Easy maintenance
+* Better code organization
+
+---
+
+## Flow
+
+```text
+Controller -> Service -> DAO -> Database
+```
+
+---
+
+## DAO Example
+
+```java
+public class EmployeeDAO {
+
+    public void saveEmployee(Employee e) {
+
+    }
+}
+```
+
+---
+
+## Interview Answer
+
+DAO pattern separates database operations from business logic.
+
+---
+
+# 37. MVC with JDBC
+
+## MVC Architecture
+
+```text
+Model -> Business/Data
+View -> UI
+Controller -> Request Handling
+```
+
+---
+
+## JDBC in MVC
+
+* JSP = View
+* Servlet = Controller
+* DAO/JDBC = Model
+
+---
+
+## Flow
+
+```text
+User -> JSP -> Servlet -> DAO -> Database
+```
+
+---
+
+## Interview Answer
+
+In MVC architecture, JDBC code is generally written inside DAO layer.
+
+---
+
+# 38. JDBC Best Practices
+
+## Best Practices
+
+* Use PreparedStatement
+* Close resources properly
+* Use try-with-resources
+* Use connection pooling
+* Avoid hardcoded credentials
+* Handle exceptions properly
+* Use DAO pattern
+
+---
+
+## Interview Answer
+
+PreparedStatement, connection pooling, and proper resource management are important JDBC best practices.
+
+---
+
+# 39. JDBC vs Hibernate
+
+| JDBC             | Hibernate         |
+| ---------------- | ----------------- |
+| Low level API    | ORM Framework     |
+| Manual SQL       | Automatic SQL     |
+| More code        | Less code         |
+| Faster sometimes | Easy development  |
+| Manual mapping   | Automatic mapping |
+
+---
+
+## Interview Answer
+
+JDBC provides direct database interaction while Hibernate is an ORM framework that simplifies database operations.
+
+---
+
+# 40. JDBC vs JPA
+
+| JDBC             | JPA              |
+| ---------------- | ---------------- |
+| API              | Specification    |
+| Manual SQL       | ORM approach     |
+| Table-oriented   | Object-oriented  |
+| More boilerplate | Less boilerplate |
+
+---
+
+## Interview Answer
+
+JDBC works directly with SQL while JPA works using entity objects.
+
+---
+
+# 41. Scrollable ResultSet
+
+## What is Scrollable ResultSet?
+
+Allows cursor movement in any direction.
+
+---
+
+## Example
+
+```java
+Statement st = con.createStatement(
+    ResultSet.TYPE_SCROLL_INSENSITIVE,
+    ResultSet.CONCUR_READ_ONLY
+);
+```
+
+---
+
+## Cursor Methods
+
+```java
+rs.next();
+rs.previous();
+rs.first();
+rs.last();
+```
+
+---
+
+## Interview Answer
+
+Scrollable ResultSet allows moving cursor forward and backward.
+
+---
+
+# 42. Updatable ResultSet
+
+## What is Updatable ResultSet?
+
+Allows updating database directly through ResultSet.
+
+---
+
+## Example
+
+```java
+Statement st = con.createStatement(
+    ResultSet.TYPE_SCROLL_INSENSITIVE,
+    ResultSet.CONCUR_UPDATABLE
+);
+```
+
+---
+
+## Update Example
+
+```java
+rs.next();
+rs.updateString("name", "Rahul");
+rs.updateRow();
+```
+
+---
+
+## Interview Answer
+
+Updatable ResultSet allows modification of database records directly from ResultSet.
+
+---
+
+# 43. ACID Properties
+
+## What is ACID?
+
+ACID properties ensure reliable transactions.
+
+---
+
+## A = Atomicity
+
+Either complete transaction or none.
+
+---
+
+## C = Consistency
+
+Database remains consistent.
+
+---
+
+## I = Isolation
+
+Transactions do not interfere.
+
+---
+
+## D = Durability
+
+Committed data remains saved permanently.
+
+---
+
+## Interview Answer
+
+ACID properties ensure reliability, consistency, and safety of database transactions.
+
+---
+
+# 44. JDBC Real-Time Flow
+
+## Real-Time Application Flow
+
+```text
+Frontend Form
+      |
+      v
+Servlet/Controller
+      |
+      v
+Service Layer
+      |
+      v
+DAO Layer
+      |
+      v
+JDBC API
+      |
+      v
+Database
+```
+
+---
+
+## Real-Time Example
+
+### Employee Registration
+
+```text
+User enters data
+-> Servlet receives request
+-> DAO saves data using JDBC
+-> Database stores employee
+-> Success response shown
+```
+
+---
+
+## Interview Answer
+
+In real-time projects, JDBC is usually used inside DAO layer for database communication.
 
 ---
 
